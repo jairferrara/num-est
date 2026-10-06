@@ -1,0 +1,617 @@
+
+❯ Check my progress and give me some feedback about the quality of my code.
+
+  Read 1 file, listed 1 directory, ran 2 shell commands (ctrl+o to expand)
+
+● You've finished sections 1–6 of 10. Sections 1–5 have code, plots and answers.
+  Section 6 has written predictions and results but no code, and its summary of
+  L and Δx stops mid-sentence ("La función que cumplen L y Δx son:"). Sections
+  7–10, the AI-use statement and the report are still to do.
+
+  I couldn't re-run the notebook because numpy isn't installed in this shell, so
+  everything below comes from reading your code and the saved outputs.
+
+  Bugs that affect your results
+
+  1. Your Δx is wrong, and 7 is typed in by hand. np.linspace(0, 7, N) includes
+     the endpoint, so the real spacing is 7/(N-1), not 7/N. You also pass dx as
+     an array (np.full(N, 7/N)); it works only by accident. The handout asks for
+     dx = x_arr[1] - x_arr[0]. Use that, and define L = 7 once so nothing else
+     has 7 written into it.
+     - This is very likely why section 6 says Δk "didn't change" when you
+       changed the interval length. If you changed the linspace endpoint but not
+       the hand-typed 7 in dx, Δk = 1/(NΔx) stayed at 1/7. In reality it should
+       change as 1/L.
+  2. Your sinc reference was fitted with a wrong width. fftfreq returns ordinary
+     frequency ν (cycles per unit length). The formula sin(kΔ/2)/(kΔ/2) uses
+     angular frequency k = 2πν. You used sinc(k, 6) instead of Δ = 1, which only
+     makes the curves line up because 6 ≈ 2π. The correct version is k =
+     2*np.pi*np.fft.fftfreq(N, d=dx) with Δ = 1, or np.abs(np.sinc(nu * 1)),
+     since numpy's sinc is sin(πx)/(πx). That also removes the divide-by-zero
+     warning at k = 0.
+  3. Plotting complex arrays (cells 5 and 15). plt.plot(k,
+     f_fourier_arr_shifted) silently drops the imaginary part. The y-label says
+     Re, but the series label says "Absolute". Pass .real or np.abs(...)
+     explicitly. The same applies to f_inv_fourier_arr in section 5.
+  4. Section 5 never prints the reconstruction error itself. You print the
+     maximum imaginary part, then claim the error is below 10⁻¹⁶. Add
+     print(err_arr.max()).
+
+  Answers that need another look
+
+  - §1 predictions 3–4 ("only one mode", "a constant amplitude"): it's fine for
+    a prediction to be wrong, but go back and say explicitly that it was and
+    why. A discontinuity needs a broad range of modes. Your own answer in §3 Q2
+    already says this.
+  - §2 Q1: your answer is confusing. The actual order is [0, +Δν, +2Δν, …,
+    −ν_Nyq, …, −Δν]: zero, then the positive frequencies, then the negatives
+    running from the most negative up towards zero. With even N, index 100 is
+    −14.29, the Nyquist frequency, which numpy stores as negative.
+  - §2 Q4/Q5: these are the key results of the practical, and your answers are
+    vague (Q4) or wrong (Q5, "it determines the centre"). The answers are Δν =
+    1/L and ν_max = 1/(2Δx), the Nyquist frequency.
+  - §3 Q3/Q4: your reasoning is right, but the handout asks you to test it
+    numerically, and there's no code for that.
+  - §4: prediction 2 says "the frequencies will change"; you mean the phases.
+    The cell 13 explanation, which leans on symmetry, misses the point. The
+    shift theorem says f(x−a) → e^{−ika} f̂(k), which adds a linear phase ramp.
+    The sawtooth in your plot is that ramp wrapping around ±π. Plotting
+    np.unwrap(phase12 - phase) makes this obvious.
+  - §6: the results don't answer the questions asked. For example, "the
+    amplitudes changed" is not an answer to "does the fundamental frequency
+    change?" Write a small loop over a few values of N and L that prints Δν and
+    ν_max. It takes only a few lines, and the instructors will want to see it.
+
+  Code style
+
+  - Replace the Python-loop f with a vectorized version: np.where((x > l) & (x <
+    r), 1.0, 0.0).
+  - k12_arr is a copy of k_arr, because the grid is the same. Reuse it.
+  - Labels like r"$Fourier trans.$" render as italic math with the spaces
+    removed. Drop the $. Most of them never show anyway, because the legend()
+    calls are commented out.
+  - A small helper such as def ft(f, dx): return shifted k, F would remove the
+    repeated fft/fftshift blocks before you reach the 2D sections.
+
+  What's already good: the plots are clean and labelled, you reasoned about the
+  imaginary residue correctly, and the four-panel amplitude/phase comparison is
+  a nice touch. Fixing dx and the 2π first matters most, because both carry into
+  the 2D filtering sections, where you'll build k-grids the same way.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Why my plot of f12 doesnt fit all the x axis?
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● The cause is that k12_arr is missing the factor of 2π you added to k_arr.
+
+  In cell 3 you now have:
+  k_arr = 2 * np.pi * np.fft.fftfreq(N, d=dx)   # spans about ±89.5
+  But cell 12 still has:
+  k12_arr = np.fft.fftfreq(N, d=dx)             # spans about ±14.2
+  The four panels use sharex=True, so they all share the wider range of k_arr.
+  The f12 panels (2 and 4) only cover a range 2π times narrower, so they sit
+  squeezed in the middle of the axis.
+
+  Fix: you don't need a separate frequency array at all. The grid is the same
+  (same N and same dx), so reuse the one you already have:
+  k12_arr_shifted = k_arr_shifted
+  Or just plot against k_arr_shifted directly and delete the k12_arr lines. That
+  way the two arrays can't get out of sync again.
+
+  A second problem in the same cell: f12_arr is built with f(x, l=3, r=4).
+  That's the original top-hat, not a shifted one, so it doesn't match the titles
+  (1 < x < 2). Change it back to l=1, r=2, or the amplitude/phase comparison
+  will show two identical functions.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ @eye.png  Qué librería de python puedo utilizar para convertir esta imagen a
+  escalas de grises real y cómo se puede conseguir de la forma más simple y
+  minimal posible?
+  ⎿  Read eye.png (92.4KB)
+
+● La forma más simple es con Pillow (PIL), que probablemente ya tienes instalado
+  porque matplotlib depende de él:
+
+  from PIL import Image
+  import numpy as np
+
+  I = np.asarray(Image.open("eye.png").convert("L"), dtype=float)
+
+  convert("L") aplica la fórmula de luminancia estándar (ITU-R 601):
+
+  $$L = 0.299,R + 0.587,G + 0.114,B$$
+
+  Por eso es una escala de grises "real" y no un simple promedio de los canales:
+  pondera cada color según la sensibilidad del ojo humano. Obtienes un arreglo
+  2D con valores de 0 a 255, listo para np.fft.fft2.
+
+  Si no quieres otra importación, puedes hacerlo solo con matplotlib y numpy,
+  que ya usas:
+
+  img = plt.imread("eye.png")                 # floats en [0, 1], forma (H, W,
+  3) o (H, W, 4)
+  I = img[..., :3] @ [0.299, 0.587, 0.114]    # mismo resultado, escala [0, 1]
+
+  El [..., :3] descarta el canal alfa si el PNG lo trae.
+
+  Un detalle a revisar con esta imagen: si el fondo blanco es en realidad
+  transparente (canal alfa), los píxeles transparentes pueden guardar cualquier
+  color RGB debajo, a menudo negro. Revísalo con plt.imshow(I, cmap="gray"). Si
+  el fondo sale negro o raro, compón primero sobre blanco:
+
+  img = Image.open("eye.png").convert("RGBA")
+  fondo = Image.new("RGBA", img.size, "white")
+  I = np.asarray(Image.alpha_composite(fondo, img).convert("L"), dtype=float)
+
+  Para visualizar, recuerda usar cmap="gray"; si no, matplotlib usa su mapa de
+  colores por defecto (viridis).
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Genera el boilerplate para plotear la transformada de fourier en 2d de la
+  imagen. Código minimal y consistente a lo anterior.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Aquí tienes una celda que sigue tu estilo (sufijos _arr, fftshift, el factor
+  2π y dos paneles):
+
+  from PIL import Image
+
+  I_arr = np.asarray(Image.open("eye.png").convert("L"), dtype=float)
+  Ny, Nx = I_arr.shape
+
+  I_fourier_arr = np.fft.fft2(I_arr)
+  I_fourier_arr_shifted = np.fft.fftshift(I_fourier_arr)
+
+  kx_arr_shifted = np.fft.fftshift(2 * np.pi * np.fft.fftfreq(Nx, d=1)) # d = 1
+  pixel
+  ky_arr_shifted = np.fft.fftshift(2 * np.pi * np.fft.fftfreq(Ny, d=1))
+
+  fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5))
+  ax1.imshow(I_arr, cmap="gray")
+  ax1.set(title=r"$I(x, y)$", xlabel=r"$x$", ylabel=r"$y$")
+  im = ax2.imshow(np.log1p(np.abs(I_fourier_arr_shifted)), cmap="gray",
+  origin="lower",
+                  extent=[kx_arr_shifted[0], kx_arr_shifted[-1],
+  ky_arr_shifted[0], ky_arr_shifted[-1]])
+  ax2.set(title=r"$\log(1 + |\hat I(k_x, k_y)|)$", xlabel=r"$k_x$",
+  ylabel=r"$k_y$")
+  fig.colorbar(im, ax=ax2)
+  fig.tight_layout()
+  plt.show()
+
+  Puntos clave:
+  - np.log1p(x) calcula log(1 + x) y corresponde directamente a la Ec. 12 del
+    enunciado.
+  - d=1 significa que la unidad de longitud es el píxel. Así el número de onda
+    máximo es π, el de Nyquist con Δx = 1, igual que en tu caso 1D.
+  - origin="lower" y extent hacen que los ejes muestren valores reales de kₓ y
+    k_y, con k = 0 en el centro. La imagen original se deja con el origen por
+    defecto (arriba) para que no se vea volteada.
+  - Para la sección 8 puedes reutilizar estos arreglos. La rejilla para los
+    filtros sería KX, KY = np.meshgrid(kx_arr_shifted, ky_arr_shifted) y luego K
+    = np.hypot(KX, KY). Como esta rejilla ya está desplazada con fftshift, la
+    máscara se aplica a I_fourier_arr_shifted y se usa np.fft.ifftshift antes de
+    ifft2.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ El fondo transparente generó problemas, qué clase de problemas estoy
+  observando? Ćómo debería resolverlo? NO escribas código más que sintaxis.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Revisé directamente el archivo eye.png. Es RGBA de 255×255 y el 33 % de los
+  píxeles tiene alfa = 0 con RGB = (0, 0, 0). Otro 1.7 % tiene alfa parcial: es
+  el borde suavizado del círculo. No pude ver tus gráficas porque el notebook
+  guardado todavía no tiene las celdas nuevas, así que esto es lo que deberías
+  estar viendo según los datos.
+
+  Qué problemas aparecen
+
+  1. Fondo negro en lugar de blanco. convert("L"), igual que img[..., :3],
+     descarta el canal alfa y se queda con el RGB que hay debajo, que es negro.
+     El visor te muestra el fondo blanco porque compone la transparencia; numpy
+     no lo hace.
+  2. Un anillo duro en el borde del iris. Los píxeles con alfa parcial pierden
+     su transparencia y conservan su color a intensidad completa. El borde queda
+     como un escalón abrupto, sin la transición suave que tenía la imagen.
+  3. Anillos concéntricos en el espacio de Fourier. Este es el efecto más
+     visible. La imagen queda como un disco brillante sobre fondo negro, que es
+     la versión 2D de tu top-hat de la sección 3. Su transformada es un patrón
+     de Airy (∝ J₁(kR)/kR, el análogo radial del sinc). Esos anillos dominan el
+     espectro y tapan la información de la textura del iris, que es la que te
+     interesa.
+  4. Un pico central muy intenso. El valor de k = 0 es la suma de la imagen, y
+     el contraste entre el disco y el fondo lo hace enorme. Eso comprime el
+     rango dinámico incluso con log1p.
+
+  Cómo resolverlo
+
+  Primero decide qué quieres estudiar.
+
+  - Si quieres el ojo completo: compón la imagen sobre un fondo explícito antes
+    de pasar a gris. La sintaxis es Image.alpha_composite(fondo, img), con fondo
+    = Image.new("RGBA", img.size, "white"), y después .convert("L"). Esto
+    arregla los problemas 1 y 2. Los anillos de Fourier no desaparecen, porque
+    el borde iris/fondo sigue siendo abrupto, ahora oscuro sobre blanco. Esos
+    anillos son física real, no un error, y se pueden comentar como el análogo
+    2D de la sección 3.
+  - Si quieres la textura del iris: recorta un cuadrado completamente dentro del
+    iris con img.crop((izq, arriba, der, abajo)). Así no queda ningún píxel
+    transparente ni ningún borde circular, y el espectro refleja solo las fibras
+    del iris. Ten en cuenta que la pupila también es un disco oscuro con borde
+    abrupto. Si el recorte la incluye, verás anillos más débiles por la misma
+    razón.
+  - Si prefieres algo más sencillo: usa una imagen sin canal alfa (JPG, o un PNG
+    en modo "RGB" o "L"). Lo puedes comprobar con Image.open(...).mode.
+
+  Para los filtros de la sección 8, recomiendo recortar. Con el fondo, el
+  pasa-altas resaltaría sobre todo el borde del círculo y no las estructuras del
+  iris.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Cuál era el método para realizar todas las combinaciones de dos arrays para
+  crear un array 2d?
+
+● Es np.meshgrid:
+
+  KX, KY = np.meshgrid(kx_arr, ky_arr)
+
+  Devuelve dos arreglos 2D de forma (len(ky_arr), len(kx_arr)). Cada uno es su
+  arreglo 1D repetido a lo largo del otro eje. Con ellos ya puedes calcular
+  cualquier función de ambas variables, por ejemplo K = np.hypot(KX, KY).
+
+  Ojo con el orden de los ejes:
+  - Por defecto (indexing="xy"), las filas corresponden a y y las columnas a x.
+    Es la convención de imágenes y coincide con I_arr.shape = (Ny, Nx), así que
+    es la que te conviene.
+  - Con indexing="ij", la forma es (len(kx_arr), len(ky_arr)), la convención
+    matricial.
+
+  Si solo necesitas el resultado de una operación y no las dos rejillas, también
+  puedes usar broadcasting: np.hypot(kx_arr[None, :], ky_arr[:, None]) da el
+  mismo K sin crear KX ni KY.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Cómo creo la máscara para k > k_0?
+
+● Con una comparación booleana sobre K:
+
+  K = np.hypot(KX, KY)
+  mask = K > k0          # True donde k > k0
+
+  Así obtienes un arreglo booleano del mismo tamaño que la imagen. Para el
+  pasa-bajas (Ec. 14) quieres eliminar esos modos, así que multiplicas por la
+  negación:
+
+  I_lp_fourier_shifted = I_fourier_arr_shifted * ~mask      # o bien: * (K <=
+  k0)
+  I_lp_arr = np.fft.ifft2(np.fft.ifftshift(I_lp_fourier_shifted)).real
+
+  Para el pasa-altas (Ec. 15) usas K >= k0, el complemento.
+
+  Detalles:
+  - La rejilla y la transformada deben estar en el mismo orden. Si KX y KY salen
+    de kx_arr_shifted y ky_arr_shifted, multiplica la máscara por
+    I_fourier_arr_shifted, como arriba, y aplica ifftshift antes de ifft2. Otra
+    opción es construir la rejilla con las frecuencias sin desplazar y aplicarla
+    directamente a I_fourier_arr, sin ningún shift. Mezclar ambos órdenes es el
+    error más común aquí.
+  - Escala de k₀: con d=1 y el factor 2π, k va de 0 a π·√2 en las esquinas. Un
+    buen punto de partida es k₀ ≈ 0.1–0.5.
+  - Visualiza la máscara con plt.imshow(mask) para confirmar que el círculo
+    queda centrado antes de transformar de regreso.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Aplica la mask a k_mod_arr de modo que los valores por encima de algún k0 se
+  vuelvan 0.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● No pude ver tu k_mod_arr porque el notebook en disco todavía no tiene esas
+  celdas; guárdalo (Ctrl+S) si quieres que lo revise. Supongo que k_mod_arr es
+  la rejilla |k| = √(kₓ² + k_y²).
+
+  Lo que pides se escribe en una línea:
+
+  k_mod_arr = np.where(k_mod_arr > k0, 0, k_mod_arr)
+
+  Pero eso no filtra la imagen. k_mod_arr solo dice qué número de onda tiene
+  cada píxel del plano de Fourier; no contiene información de la imagen. Si
+  pones a cero sus valores, solo cambias la etiqueta de esos modos, y
+  I_fourier_arr_shifted queda intacta. Además pierdes la rejilla que necesitas
+  para el pasa-altas.
+
+  Lo que quieres poner a cero son los coeficientes de la transformada donde k >
+  k₀, usando k_mod_arr solo para elegir cuáles:
+
+  I_lp_fourier_shifted = np.where(k_mod_arr > k0, 0, I_fourier_arr_shifted)
+  I_lp_arr = np.fft.ifft2(np.fft.ifftshift(I_lp_fourier_shifted)).real
+
+  np.where crea un arreglo nuevo y no modifica ni k_mod_arr ni
+  I_fourier_arr_shifted. Así puedes reutilizar ambos para el pasa-altas, que
+  sería el mismo np.where con k_mod_arr < k0.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Es que no puedes escribir en mi archivo ipynb? Pero si puedes con otros
+  archivos como .md? Ya guardé.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+  ⎿  Updated cell 9c4946a1:
+         1 I_lp_fourier_arr_shifted = np.where(k_mod_arr > k0, 0, I_fouri
+           er_arr_shifted) # Se anulan los modos con k > k0, k_mod_arr qu
+           eda intacto
+         2 I_lp_arr = np.fft.ifft2(np.fft.ifftshift(I_lp_fourier_arr_shif
+           ted)).real
+         3
+         4 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 5))
+         5 ax1.imshow(np.log(1 + np.abs(I_lp_fourier_arr_shifted)), cmap=
+           "gray", origin="lower",
+         6            extent=[k_x_arr_shifted[0], k_x_arr_shifted[-1], k_
+           y_arr_shifted[0], k_y_arr_shifted[-1]])
+         7 ax1.set(title=rf"$\log(1 + |\hat I(k_x, k_y)|),\ k \leq {k0}$"
+           , xlabel=r"$k_x$", ylabel=r"$k_y$")
+         8 ax2.imshow(I_lp_arr, cmap="gray")
+         9 ax2.set(title=r"$I_{low}(x, y)$", xlabel=r"$x$", ylabel=r"$y$"
+           )
+        10 fig.tight_layout()
+        11 plt.show()
+
+
+
+● Sí puedo editar .ipynb. Antes no lo hice porque el notebook guardado aún no
+  tenía tus celdas nuevas y no quería escribir a ciegas. Ahora que lo guardaste,
+  llené la celda vacía después de k_mod_arr (celda 9c4946a1) con el pasa-bajas.
+  No la ejecuté; córrela tú en tu kernel.
+
+  La celda:
+  - pone a cero los coeficientes de I_fourier_arr_shifted donde k_mod_arr > k0,
+    usando np.where. Así no se modifica ni k_mod_arr ni la transformada
+    original, y puedes reutilizarlas para el pasa-altas;
+  - regresa al espacio real con ifftshift y luego ifft2, y toma .real;
+  - grafica lado a lado el espectro filtrado (mismos ejes y extent que en la
+    sección 7) y la imagen filtrada.
+
+  Para el pasa-altas basta con copiar la celda y cambiar > por <.
+
+  Un detalle en la celda de la sección 7: I_x_arr, I_y_arr = I_arr.shape tiene
+  los nombres invertidos, porque shape devuelve (Ny, Nx), es decir, primero
+  filas (y) y luego columnas (x). Ahora no afecta porque la imagen es cuadrada
+  (255×255), pero con una imagen rectangular los ejes k quedarían cruzados. Lo
+  correcto es Ny, Nx = I_arr.shape. Por cierto, son enteros, no arreglos, así
+  que el sufijo _arr confunde.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ He intercambiado el orden de las imagenes, corrige los labels.
+
+  Ran 1 shell command (ctrl+o to expand)
+● Todavía no veo el cambio en el archivo. En disco, la celda 9c4946a1 sigue con
+  el espectro en ax1 y la imagen en ax2, así que probablemente aún no la
+  guardaste.
+
+  No la edito ahora porque, si escribo sobre el archivo mientras tienes cambios
+  sin guardar en el editor, uno de los dos sobrescribiría al otro. Guarda
+  (Ctrl+S) y avísame, y corrijo los labels sobre tu versión.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ dale
+
+  Read 1 file (ctrl+o to expand)
+  ⎿  Updated cell 9c4946a1:
+         1 k0 = 0.9
+         2
+         3 X, Y = np.meshgrid(k_x_arr_shifted, k_y_arr_shifted)
+         4 k_mod_arr = np.hypot(X, Y)
+         5
+         6 I_lp_fourier_arr_shifted = np.where(k_mod_arr > k0, 0, I_fouri
+           er_arr_shifted) # Se anulan los modos con k > k0, k_mod_arr qu
+           eda intacto
+         7 I_lp_arr = np.fft.ifft2(np.fft.ifftshift(I_lp_fourier_arr_shif
+           ted)).real
+         8
+         9 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 5))
+        10 ax1.imshow(I_lp_arr, cmap="gray")
+        11 ax1.set(title=r"$I_{low}(x, y)$", xlabel=r"$x$", ylabel=r"$y$"
+           )
+        12 im = ax2.imshow(np.log(1 + np.abs(I_lp_fourier_arr_shifted)),
+           cmap="gray", origin="lower",
+        13                 extent=[k_x_arr_shifted[0], k_x_arr_shifted[-1
+           ], k_y_arr_shifted[0], k_y_arr_shifted[-1]])
+        14 ax2.set(title=rf"$\log(1 + |\hat I(k_x, k_y)|),\ k \leq {k0}$"
+           , xlabel=r"$k_x$", ylabel=r"$k_y$")
+        15 fig.colorbar(im, ax=ax2)
+        16 fig.tight_layout()
+        17 plt.show()
+
+● Ya corregí los labels en la celda del pasa-bajas (9c4946a1). No la ejecuté;
+  córrela tú. Al revisarla también corregí la barra de color, que tenía otro
+  problema:
+
+  - Labels: el segundo ax2.set(...) debía ser ax1.set(...). Tal como estaba,
+    sobrescribía el título y los ejes del espectro con I_low(x, y), y la imagen
+    filtrada se quedaba sin labels. Ahora ax1 tiene la imagen con ejes x, y, y
+    ax2 tiene el espectro con kₓ, k_y.
+  - Barra de color: fig.colorbar(im, ax=ax2) usaba el im de la sección 7, es
+    decir, la escala del espectro sin filtrar. Ahora el imshow del espectro
+    filtrado se guarda en im, así que la barra corresponde a lo que se ve.
+
+  También ordené las líneas para que cada imshow quede junto a su set, porque
+  así es más difícil que vuelvan a cruzarse.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Arregla los labels de mi ultima imagen
+
+  Ran 1 shell command (ctrl+o to expand)
+  ⎿  Updated cell b2f1e431:
+         1 I_hp_fourier_arr_shifted = np.where(k_mod_arr < k0, 0, I_fouri
+           er_arr_shifted)
+         2 I_hp_arr = np.fft.ifft2(np.fft.ifftshift(I_hp_fourier_arr_shif
+           ted)).real
+         3
+         4 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 5))
+         5 ax1.imshow(I_hp_arr, cmap="gray")
+         6 ax1.set(title=r"$I_{high}(x, y)$", xlabel=r"$x$", ylabel=r"$y$
+           ")
+         7 im = ax2.imshow(np.log(1 + np.abs(I_hp_fourier_arr_shifted)),
+           cmap="gray", origin="lower",
+         8                 extent=[k_x_arr_shifted[0], k_x_arr_shifted[-1
+           ], k_y_arr_shifted[0], k_y_arr_shifted[-1]])
+         9 ax2.set(title=rf"$\log(1 + |\hat I(k_x, k_y)|),\ k \geq {k0}$"
+           , xlabel=r"$k_x$", ylabel=r"$k_y$")
+        10 fig.colorbar(im, ax=ax2)
+        11 fig.tight_layout()
+        12 plt.show()
+
+
+
+
+● Corregí los títulos de la celda del pasa-altas (b2f1e431), que habían quedado
+  copiados del pasa-bajas. No la ejecuté; córrela para actualizar la figura.
+
+  - Imagen: el título dice ahora I_high(x, y); antes decía I_low.
+  - Espectro: el título dice ahora k ≥ k0; antes decía k ≤ k0. Es la región que
+    conservas, porque np.where(k_mod_arr < k0, 0, ...) anula los modos por
+    debajo de k₀.
+
+  Una observación sobre tu respuesta 2 del pasa-bajas: "pixelada" no es la
+  palabra correcta. Un pasa-bajas suaviza; no genera píxeles más grandes. Si ves
+  ondulaciones o halos junto a los bordes, son el fenómeno de Gibbs, causado
+  por el corte abrupto en k₀. Es el análogo 2D de las oscilaciones del sinc de
+  la sección 3, y lo puedes usar como motivación para tu filtro con corte suave
+  de la sección 9.
+
+❯ <ide_selection>The user selected the lines 4 to 4 from
+  /home/jairf/work/lectures/metodos/02/02.ipynb:
+  I_hp_fourier_arr_shifted = np.where(condition, 0, I_fourier_arr_shifted)
+
+  This may or may not be related to the current task.</ide_selection>
+
+❯ Antes de la línea seleccionado, escribe la condición para mi filtro.
+
+  Ran 1 shell command (ctrl+o to expand)
+  ⎿  Updated cell 5c8cac62:
+         1 Del = 0.2
+         2 theta = np.pi / 3
+         3
+         4 condition = np.abs(Y * np.cos(theta) - X * np.sin(theta)) < De
+           l / 2 # Distancia de (k_x, k_y) a la recta l con dirección (co
+           s(theta), sin(theta)) que pasa por el origen
+         5 I_hp_fourier_arr_shifted = np.where(condition, 0, I_fourier_ar
+           r_shifted)
+         6 I_hp_arr = np.fft.ifft2(np.fft.ifftshift(I_hp_fourier_arr_shif
+           ted)).real
+         7
+         8 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 5))
+         9 ax1.imshow(I_hp_arr, cmap="gray")
+        10 ax1.set(title=r"$I_{high}(x, y)$", xlabel=r"$x$", ylabel=r"$y$
+           ")
+        11 im = ax2.imshow(np.log(1 + np.abs(I_hp_fourier_arr_shifted)),
+           cmap="gray", origin="lower",
+        12                 extent=[k_x_arr_shifted[0], k_x_arr_shifted[-1
+           ], k_y_arr_shifted[0], k_y_arr_shifted[-1]])
+        13 ax2.set(title=rf"$\log(1 + |\hat I(k_x, k_y)|),\ k \geq {k0}$"
+           , xlabel=r"$k_x$", ylabel=r"$k_y$")
+        14 fig.colorbar(im, ax=ax2)
+        15 fig.tight_layout()
+        16 plt.show()
+
+● Escribí la condición en la celda de la sección 9 (5c8cac62), justo antes de la
+  línea que seleccionaste. No ejecuté la celda.
+
+  condition = np.abs(Y * np.cos(theta) - X * np.sin(theta)) < Del / 2
+
+  Es la distancia perpendicular de cada punto (kₓ, k_y) a la recta l, que pasa
+  por el origen con dirección û = (cos θ, sin θ). Esa distancia es |k × û| =
+  |k_y cos θ − kₓ sin θ|. La banda son los puntos que quedan a menos de Δ/2 de
+  l, que es exactamente tu descripción del punto 1. En el markdown la puedes
+  escribir así:
+
+  $$\left|,k_y\cos\theta - k_x\sin\theta,\right| < \frac{\Delta}{2}$$
+
+  Cosas a tener en cuenta al ejecutar:
+  - La banda contiene k = 0. Como pasa por el origen, también elimina el modo
+    constante, que es el brillo promedio. La imagen quedará centrada en cero,
+    oscurecida y con contraste raro, además del efecto direccional que buscas.
+    Si quieres aislar solo el efecto direccional, puedes conservar el centro con
+    condition & (k_mod_arr > k0).
+  - Títulos y nombres copiados del pasa-altas: la celda sigue diciendo I_high y
+    k ≥ k0. Además, reutiliza I_hp_*, así que sobrescribe los resultados del
+    pasa-altas. Si quieres, los cambio por algo como I_band_* con títulos
+    acordes a θ y Δ.
+
+❯ <ide_opened_file>The user opened the file
+  /home/jairf/work/lectures/metodos/02/02.ipynb in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+❯ Cambia los labels a algo más representativo como custom o own.
+
+  Ran 1 shell command (ctrl+o to expand)
+  ⎿  Updated cell 5c8cac62:
+         1 Del = 0.8
+         2 theta = np.pi / 4
+         3
+         4 condition = np.abs(Y * np.cos(theta) - X * np.sin(theta)) < De
+           l / 2
+         5 I_own_fourier_arr_shifted = np.where(condition, 0, I_fourier_a
+           rr_shifted)
+         6 I_own_arr = np.fft.ifft2(np.fft.ifftshift(I_own_fourier_arr_sh
+           ifted)).real
+         7
+         8 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 5))
+         9 ax1.imshow(I_own_arr, cmap="gray")
+        10 ax1.set(title=r"$I_{own}(x, y)$", xlabel=r"$x$", ylabel=r"$y$"
+           )
+        11 im = ax2.imshow(np.log(1 + np.abs(I_own_fourier_arr_shifted)),
+            cmap="gray", origin="lower",
+        12                 extent=[k_x_arr_shifted[0], k_x_arr_shifted[-1
+           ], k_y_arr_shifted[0], k_y_arr_shifted[-1]])
+        13 ax2.set(title=rf"$\log(1 + |\hat I(k_x, k_y)|),\ \Delta = {Del
+           },\ \theta = {np.degrees(theta):.0f}^\circ$", xlabel=r"$k_x$",
+            ylabel=r"$k_y$")
+        14 fig.colorbar(im, ax=ax2)
+        15 fig.tight_layout()
+        16 plt.show()
+
+● Listo. En la celda del filtro propio (5c8cac62) cambié los títulos y los
+  nombres de las variables; no la ejecuté:
+
+  - Título de la imagen: I_own(x, y).
+  - Título del espectro: ahora muestra los parámetros de tu filtro en vez del k
+    ≥ k0 que venía copiado. Con los valores actuales se lee "Δ = 0.8, θ = 45°".
+    Como el título toma Del y theta, se actualiza solo cuando los cambies.
+  - Variables: renombré I_hp_* a I_own_* para que esta celda no sobrescriba los
+    resultados del pasa-altas.
