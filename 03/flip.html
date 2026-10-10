@@ -1,0 +1,390 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Flip de modos ±k</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: tablero de modos a la izquierda, paso actual + código + controles a la derecha; se apila en pantallas angostas */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --fg: #17202b;
+  --muted: #5b6676;
+  --line: #d5dbe4;
+  --accent: #1f62a8;
+  --accent-soft: #e2ecf7;
+  --ok: #1d7a46;
+  --bad: #b3261e;
+  --tile-l: 80%;
+  --tile-s: 62%;
+  --ring-l: 40%;
+  --tile-fg: #121820;
+  --code-bg: #e9edf3;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --dur: 650ms;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #19202a; --fg: #e6ebf2; --muted: #98a3b3; --line: #2c3644;
+    --accent: #79aee8; --accent-soft: #1c2a3b; --ok: #5cc98a; --bad: #f08a80;
+    --tile-l: 72%; --tile-s: 50%; --ring-l: 64%; --tile-fg: #10151c; --code-bg: #141a22;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #19202a; --fg: #e6ebf2; --muted: #98a3b3; --line: #2c3644;
+  --accent: #79aee8; --accent-soft: #1c2a3b; --ok: #5cc98a; --bad: #f08a80;
+  --tile-l: 72%; --tile-s: 50%; --ring-l: 64%; --tile-fg: #10151c; --code-bg: #141a22;
+  color-scheme: dark;
+}
+@media (prefers-reduced-motion: reduce) { :root { --dur: 0ms; } }
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 28px 40px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 24px; }
+
+header { display: grid; gap: 6px; max-width: 68ch; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(24px, 4vw, 32px); line-height: 1.15; margin: 0; font-weight: 700; text-wrap: balance; }
+h1 code { font-family: var(--font-mono); font-weight: 600; }
+.lede { margin: 0; color: var(--muted); }
+.lede code, .note code { font-family: var(--font-mono); font-size: .92em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; color: var(--fg); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 500px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 860px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+
+/* tablero con etiquetas de ejes */
+.figure { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; gap: 6px; width: 100%; max-width: 500px; }
+.corner { font-family: var(--font-mono); font-size: 11px; color: var(--muted); align-self: end; justify-self: end; text-align: right; line-height: 1.25; }
+.axis-top, .axis-left { display: grid; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.axis-top { grid-template-columns: repeat(var(--n), 1fr); text-align: center; line-height: 1.3; }
+.axis-left { grid-template-rows: repeat(var(--n), 1fr); text-align: right; align-items: center; padding-right: 2px; line-height: 1.3; }
+.axis-top b, .axis-left b { display: block; color: var(--fg); font-weight: 500; }
+
+.board {
+  position: relative; aspect-ratio: 1; width: 100%; max-width: 100%;
+  overflow: hidden; border-radius: 6px; background: var(--surface);
+  outline: 1px solid var(--line); container-type: inline-size;
+  transition: opacity 240ms ease;
+}
+.board.fade { opacity: 0; }
+.tile, .slot {
+  position: absolute; left: 0; top: 0;
+  width: calc(100% / var(--n)); height: calc(100% / var(--n));
+  transform: translate(calc(var(--x) * 100%), calc(var(--y) * 100%));
+}
+.tile {
+  transition: transform var(--dur) cubic-bezier(.45, .05, .25, 1);
+  padding: 3px;
+}
+.tile.instant { transition: none; }
+.tile .face {
+  width: 100%; height: 100%; border-radius: 5px;
+  background: hsl(var(--h) var(--tile-s) var(--tile-l));
+  color: var(--tile-fg);
+  display: grid; place-content: center; text-align: center; position: relative;
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+}
+.face .mode { font-weight: 600; font-size: calc(100cqi / var(--n) * .17); letter-spacing: -.02em; }
+.face .idx { font-size: calc(100cqi / var(--n) * .12); opacity: .7; }
+.face .star { position: absolute; top: 3px; right: 6px; font-size: calc(100cqi / var(--n) * .15); }
+
+.slot { pointer-events: none; padding: 1px; }
+.slot .ring {
+  width: 100%; height: 100%; border-radius: 6px;
+  border: 3px dashed hsl(var(--h) 70% var(--ring-l));
+  opacity: 0; transition: opacity 200ms ease;
+}
+.slot .mark {
+  position: absolute; right: 4px; bottom: 3px;
+  font-weight: 700; font-family: var(--font-body);
+  font-size: calc(100cqi / var(--n) * .18);
+  opacity: 0; transition: opacity 200ms ease;
+  text-shadow: 0 0 3px var(--surface), 0 0 3px var(--surface);
+}
+.board.rings .slot .ring { opacity: 1; }
+.slot.ok .mark { color: var(--ok); opacity: 1; }
+.slot.bad .mark { color: var(--bad); opacity: 1; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); margin-top: 10px; max-width: 500px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 14px; height: 14px; border-radius: 3px; border: 2px dashed var(--muted); }
+
+/* panel derecho */
+.panel { display: grid; gap: 18px; min-width: 0; }
+.steps { display: flex; gap: 8px; flex-wrap: wrap; }
+.steps button {
+  font: 500 13px/1 var(--font-body); color: var(--muted);
+  background: transparent; border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 12px; cursor: pointer;
+}
+.steps button[aria-current="step"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.caption { min-height: 7.5em; }
+.caption h2 { font-size: 18px; margin: 0 0 6px; text-wrap: balance; }
+.caption p { margin: 0; max-width: 60ch; }
+.caption code { font-family: var(--font-mono); font-size: .92em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+
+pre.code {
+  margin: 0; background: var(--code-bg); border-radius: 6px; padding: 12px 0;
+  font: 13.5px/1.7 var(--font-mono); overflow-x: auto; border: 1px solid var(--line);
+}
+pre.code span { display: block; padding: 0 14px; border-left: 3px solid transparent; white-space: pre; }
+pre.code .c { color: var(--muted); }
+pre.code span.hl { background: var(--accent-soft); border-left-color: var(--accent); }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn {
+  font: 500 14px/1 var(--font-body); color: var(--fg);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  padding: 9px 14px; cursor: pointer;
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); min-width: 108px; }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn:focus-visible, .steps button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+label.n { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; color: var(--muted); margin-left: auto; }
+select { font: 500 14px var(--font-mono); padding: 7px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+
+.note { font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 64ch; }
+.note p { margin: 0 0 8px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">numpy.fft · práctica 03</div>
+    <h1>Cómo <code>flip</code> lleva cada modo <i>k</i> a −<i>k</i></h1>
+    <p class="lede"><code>flip = lambda A: np.roll(A[::-1, ::-1], 1, axis=(0, 1))</code> devuelve un arreglo con <code>flip(A)[i, j] = A[−i, −j]</code> (índices módulo N). Cada casilla del tablero es una entrada de <code>A</code> en el orden estándar de numpy; el texto grande es el modo (m<sub>y</sub>, m<sub>x</sub>) que guarda.</p>
+  </header>
+
+  <div class="stage">
+    <div>
+      <div class="figure" id="figure">
+        <div class="corner">i \ j<br>m</div>
+        <div class="axis-top" id="axisTop"></div>
+        <div class="axis-left" id="axisLeft"></div>
+        <div class="board" id="board" role="img" aria-label="Tablero de modos de Fourier que se reordenan con flip"></div>
+      </div>
+      <div class="legend">
+        <span>mismo color = pareja ±<b>k</b></span>
+        <span>★ = su propio opuesto</span>
+        <span><i class="swatch"></i> anillo = color que debe llegar a esa casilla</span>
+        <span>✓ / ✗ = llegó o no A[−i, −j]</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="steps" id="steps" role="group" aria-label="Pasos">
+        <button type="button" data-step="0">0 · A</button>
+        <button type="button" data-step="1">1 · invertir</button>
+        <button type="button" data-step="2">2 · desplazar</button>
+      </div>
+
+      <div class="caption" id="caption" aria-live="polite"></div>
+
+      <pre class="code" id="code"><span data-line="0">A                              <i class="c"># orden estándar (fftfreq)</i></span><span data-line="1">B = A[::-1, ::-1]              <i class="c"># paso 1: i → N−1−i</i></span><span data-line="2">B = np.roll(B, 1, axis=(0, 1)) <i class="c"># paso 2: i → N−i (mod N)</i></span></pre>
+
+      <div class="controls">
+        <button type="button" class="btn" id="prev" aria-label="Paso anterior">◀ Anterior</button>
+        <button type="button" class="btn primary" id="play">▶ Reproducir</button>
+        <button type="button" class="btn" id="next" aria-label="Paso siguiente">Siguiente ▶</button>
+        <label class="n" for="nsel">N
+          <select id="nsel">
+            <option value="4" selected>4 (par)</option>
+            <option value="5">5 (impar)</option>
+            <option value="6">6 (par)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="note">
+        <p>Con N par hay cuatro modos que son su propio opuesto: (0,0) y los que contienen la frecuencia de Nyquist −N/2. Con N impar solo (0,0). Por eso, en la simetrización <code>(A + np.conj(flip(A))) / np.sqrt(2)</code>, esos modos quedan reales (√2·Re A) y los demás se combinan con su pareja.</p>
+        <p>Teclado: ← → para cambiar de paso, espacio para reproducir o pausar.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DUR = reduce ? 0 : 650, HOLD = 1900, HOLD_START = 1500;
+  const board = document.getElementById('board');
+  const figure = document.getElementById('figure');
+  const axisTop = document.getElementById('axisTop');
+  const axisLeft = document.getElementById('axisLeft');
+  const caption = document.getElementById('caption');
+  const playBtn = document.getElementById('play');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const nsel = document.getElementById('nsel');
+  const stepBtns = [...document.querySelectorAll('#steps button')];
+  const codeLines = [...document.querySelectorAll('#code span')];
+
+  let N = 4, step = 0, playing = !reduce, run = 0, tiles = [], slots = [];
+
+  const mode = (i) => (i < Math.ceil(N / 2) ? i : i - N);
+  const fmt = (v) => (v === 0 ? '0' : v > 0 ? '+' + v : '−' + (-v));
+  const neg = (i) => (N - i) % N;
+  const pos = (s, k) => (k === 0 ? s : k === 1 ? N - 1 - s : neg(s));
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  function groupHues() {
+    const ids = new Map(); const hue = [];
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      const a = i * N + j, b = neg(i) * N + neg(j);
+      const key = Math.min(a, b) + ':' + Math.max(a, b);
+      if (!ids.has(key)) ids.set(key, ids.size);
+      hue[a] = (ids.get(key) * 137.508 + 205) % 360;
+    }
+    return hue;
+  }
+
+  const CAPTIONS = [
+    ['Paso 0 · A en orden estándar',
+     'Cada fila i y columna j corresponden al modo que da <code>fftfreq</code>: primero 0 y los positivos, luego los negativos. Las casillas del mismo color son una pareja (<b>k</b>, −<b>k</b>). Para que el campo sea real, cada una debe ser el conjugado de su pareja.'],
+    ['Paso 1 · <code>A[::-1, ::-1]</code>',
+     'Se invierten filas y columnas: el índice i va a N−1−i. El anillo punteado de cada casilla tiene el color del modo que debería llegar ahí (el opuesto del modo original). Todas las casillas quedan marcadas con ✗: el resultado está corrido un lugar, porque el opuesto de i es N−i, no N−1−i.'],
+    ['Paso 2 · <code>np.roll(…, 1, axis=(0, 1))</code>',
+     'Todo se desplaza una casilla hacia abajo y a la derecha, como en una cinta circular: lo que sale por un borde entra por el opuesto. Ahora cada casilla contiene A[−i, −j], el color de cada ficha coincide con su anillo y los ★ volvieron a su lugar. Esto es <code>flip(A)</code>.'],
+  ];
+
+  function build() {
+    run++;
+    figure.style.setProperty('--n', N);
+    board.style.setProperty('--n', N);
+    board.innerHTML = ''; axisTop.innerHTML = ''; axisLeft.innerHTML = '';
+    tiles = []; slots = [];
+    const hue = groupHues();
+    for (let k = 0; k < N; k++) {
+      axisTop.insertAdjacentHTML('beforeend', `<div><b>j=${k}</b>${fmt(mode(k))}</div>`);
+      axisLeft.insertAdjacentHTML('beforeend', `<div><b>i=${k}</b>${fmt(mode(k))}</div>`);
+    }
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      const t = document.createElement('div');
+      t.className = 'tile';
+      t.style.setProperty('--h', hue[i * N + j]);
+      const self = neg(i) === i && neg(j) === j;
+      t.innerHTML = `<div class="face"><div class="mode">(${fmt(mode(i))},${fmt(mode(j))})</div><div class="idx">A[${i},${j}]</div>${self ? '<span class="star" aria-hidden="true">★</span>' : ''}</div>`;
+      t.si = i; t.sj = j;
+      board.appendChild(t); tiles.push(t);
+    }
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      const s = document.createElement('div');
+      s.className = 'slot';
+      s.style.setProperty('--h', hue[i * N + j]);
+      s.style.setProperty('--x', j); s.style.setProperty('--y', i);
+      s.innerHTML = '<div class="ring"></div><span class="mark" aria-hidden="true"></span>';
+      s.i = i; s.j = j;
+      board.appendChild(s); slots.push(s);
+    }
+    step = 0;
+    place(0, false);
+    render();
+  }
+
+  function setXY(t, x, y, instant) {
+    if (instant) t.classList.add('instant');
+    t.style.setProperty('--x', x); t.style.setProperty('--y', y);
+    if (instant) { void t.offsetWidth; t.classList.remove('instant'); }
+  }
+  function place(k, animate) {
+    for (const t of tiles) setXY(t, pos(t.sj, k), pos(t.si, k), !animate);
+  }
+  function clearMarks() {
+    for (const s of slots) { s.classList.remove('ok', 'bad'); s.querySelector('.mark').textContent = ''; }
+  }
+  function showMarks(k) {
+    if (k === 0) return;
+    // ficha que ocupa la casilla (i, j) en el paso k
+    const at = new Map(tiles.map((t) => [pos(t.si, k) * N + pos(t.sj, k), t]));
+    for (const s of slots) {
+      const t = at.get(s.i * N + s.j);
+      const ok = t.si === neg(s.i) && t.sj === neg(s.j);
+      s.classList.add(ok ? 'ok' : 'bad');
+      s.querySelector('.mark').textContent = ok ? '✓' : '✗';
+    }
+  }
+
+  function render() {
+    stepBtns.forEach((b, k) => { if (k === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    codeLines.forEach((l, k) => l.classList.toggle('hl', k === step));
+    caption.innerHTML = `<h2>${CAPTIONS[step][0]}</h2><p>${CAPTIONS[step][1]}</p>`;
+    board.classList.toggle('rings', step > 0);
+    prevBtn.disabled = step === 0;
+    nextBtn.disabled = step === 2;
+    playBtn.textContent = playing ? '❚❚ Pausa' : '▶ Reproducir';
+  }
+
+  async function goTo(k, animate = true) {
+    const id = ++run;
+    const from = step;
+    step = k; clearMarks(); render();
+    if (k === 2 && from === 1 && animate && DUR > 0) {
+      // fase a: todo +1; lo que pasa del borde sale del tablero
+      for (const t of tiles) setXY(t, N - 1 - t.sj + 1, N - 1 - t.si + 1, false);
+      await sleep(DUR + 30); if (id !== run) return;
+      // fase b: lo que salió reaparece por el borde opuesto
+      for (const t of tiles) {
+        const x = N - t.sj, y = N - t.si;
+        if (x === N || y === N) setXY(t, x === N ? -1 : x, y === N ? -1 : y, true);
+      }
+      void board.offsetWidth;
+      place(2, true);
+      await sleep(DUR + 30); if (id !== run) return;
+    } else {
+      place(k, animate);
+      await sleep(animate ? DUR + 30 : 0); if (id !== run) return;
+    }
+    showMarks(k);
+  }
+
+  async function reset() {
+    const id = ++run;
+    board.classList.add('fade');
+    await sleep(reduce ? 0 : 260); if (id !== run) return;
+    step = 0; clearMarks(); place(0, false); render();
+    board.classList.remove('fade');
+  }
+
+  async function loop() {
+    const id = run;
+    while (playing && id === run) {
+      await sleep(step === 0 ? HOLD_START : HOLD);
+      if (!playing || id !== run) return;
+      if (step < 2) { await goTo(step + 1); } else { await reset(); }
+      // goTo/reset incrementan run; seguimos con el nuevo id
+      return loop();
+    }
+  }
+
+  function setPlaying(p) {
+    playing = p; run++; render();
+    if (playing) loop();
+  }
+
+  playBtn.addEventListener('click', () => setPlaying(!playing));
+  nextBtn.addEventListener('click', () => { setPlaying(false); if (step < 2) goTo(step + 1); });
+  prevBtn.addEventListener('click', () => { setPlaying(false); if (step > 0) goTo(step - 1, false); });
+  stepBtns.forEach((b, k) => b.addEventListener('click', () => {
+    setPlaying(false);
+    if (k === step) return;
+    goTo(k, k === step + 1);
+  }));
+  nsel.addEventListener('change', () => { N = +nsel.value; build(); if (playing) loop(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('select')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); nextBtn.click(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prevBtn.click(); }
+    else if (e.key === ' ' && !e.target.closest('button')) { e.preventDefault(); playBtn.click(); }
+  });
+
+  build();
+  if (playing) loop();
+})();
+</script>
+
+</body></html>
