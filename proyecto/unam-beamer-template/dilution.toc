@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Objetivos}{2}{0}{1}
+\beamer@sectionintoc {2}{Motivación}{3}{0}{2}
+\beamer@sectionintoc {3}{Punto de partida}{4}{0}{3}
+\beamer@sectionintoc {4}{Entradas}{5}{0}{4}
+\beamer@sectionintoc {5}{Salidas}{6}{0}{5}
+\beamer@sectionintoc {6}{Plan de implementación}{7}{0}{6}
+\beamer@sectionintoc {7}{Bibliografía}{8}{0}{7}
+\beamer@sectionintoc {8}{¡Gracias! \\[0.4em] {\normalsize ¿Preguntas y comentarios?}}{9}{0}{8}
