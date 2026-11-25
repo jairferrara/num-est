@@ -326,47 +326,40 @@
 
 % <<< blocks
 
-\setbeamertemplate{block begin}{
-    \vspace{\fill}
-    \begin{adjustbox}{max width=0.98\textwidth}
-        \begin{tabular}{!{\color{UNAMDarkBlue}{\vrule width 4pt}}>{\columncolor[gray]{0.97}}m{\textwidth}}
-    	    \begin{beamercolorbox}{block title}
-                \usebeamerfont*{block title}
-                \vbox{}\vskip 0.05ex
-                \insertblocktitle
-                \vbox{}\vskip 0.2ex
-            \end{beamercolorbox}
-            \usebeamerfont*{block text}
+% Bloque: barra de color a la izquierda y fondo gris claro.
+% El contenido se compone primero en una caja (lrbox + minipage) y luego se dibuja
+% con su alto y su profundidad reales, así que fracciones, \displaystyle, listas o
+% ecuaciones nunca se salen del fondo. El ancho es exactamente \linewidth (sin
+% reescalar), el contenido queda centrado verticalmente con el mismo margen arriba y
+% abajo, y si el título está vacío no se deja ninguna línea extra.
+\newsavebox\unam@blockbox
+\newlength\unam@blockpad   \setlength\unam@blockpad{6pt}
+\newlength\unam@blockbar   \setlength\unam@blockbar{4pt}
+\newcommand\unam@blockbegin[2]{%
+    \def\unam@blockrule{#1}%
+    \par\vskip0.4ex\noindent
+    \begin{lrbox}{\unam@blockbox}%
+    \begin{minipage}{\dimexpr\linewidth-\unam@blockbar-2\unam@blockpad\relax}%
+        \ifx\insertblocktitle\@empty\else
+            {\usebeamercolor[fg]{#2}\usebeamerfont*{block title}\insertblocktitle\par}\vskip0.4ex
+        \fi
+        \usebeamerfont*{block text}%
 }
-\setbeamertemplate{block end}{\end{tabular}\end{adjustbox}}
+\newcommand\unam@blockend{%
+    \end{minipage}\end{lrbox}%
+    {\color{\unam@blockrule}\vrule width \unam@blockbar
+        height \dimexpr\ht\unam@blockbox+\unam@blockpad\relax
+        depth  \dimexpr\dp\unam@blockbox+\unam@blockpad\relax}%
+    {\setlength\fboxsep{\unam@blockpad}\colorbox[gray]{0.97}{\usebox\unam@blockbox}}%
+    \par\vskip0.4ex
+}
 
-\setbeamertemplate{block alerted begin}{
-    \vspace{\fill}
-    \begin{adjustbox}{max width=0.98\textwidth}
-        \begin{tabular}{!{\color{UNAMGold}{\vrule width 4pt}}>{\columncolor[gray]{0.97}}m{\textwidth}}
-    	    \begin{beamercolorbox}{alerted text}
-                \usebeamerfont*{block title}
-                \vbox{}\vskip 0.05ex
-                \insertblocktitle
-                \vbox{}\vskip 0.2ex
-            \end{beamercolorbox}
-            \usebeamerfont*{block text}
-}
-\setbeamertemplate{block alerted end}{\end{tabular}\end{adjustbox}}
-
-\setbeamertemplate{block example begin}{
-    \vspace{\fill}
-    \begin{adjustbox}{max width=0.98\textwidth}
-        \begin{tabular}{!{\color{UNAMLightBlue}{\vrule width 4pt}}>{\columncolor[gray]{0.97}}m{\textwidth}}
-    	    \begin{beamercolorbox}{example text}
-                \usebeamerfont*{block title}
-                \vbox{}\vskip 0.05ex
-                \insertblocktitle
-                \vbox{}\vskip 0.2ex
-            \end{beamercolorbox}
-            \usebeamerfont*{block text}
-}
-\setbeamertemplate{block example end}{\end{tabular}\end{adjustbox}}
+\setbeamertemplate{block begin}{\unam@blockbegin{UNAMDarkBlue}{block title}}
+\setbeamertemplate{block end}{\unam@blockend}
+\setbeamertemplate{block alerted begin}{\unam@blockbegin{UNAMGold}{alerted text}}
+\setbeamertemplate{block alerted end}{\unam@blockend}
+\setbeamertemplate{block example begin}{\unam@blockbegin{UNAMLightBlue}{example text}}
+\setbeamertemplate{block example end}{\unam@blockend}
 
 % >>>
 

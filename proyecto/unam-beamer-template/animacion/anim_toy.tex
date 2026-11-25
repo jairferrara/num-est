@@ -1,0 +1,79 @@
+% Cuadros de la animación del toy model, uno por página (24 cuadros/s).
+% 0-4 s: crecimiento sin dilución (ambos paneles iguales).
+% 4-10 s: actúa solo la fuente; izquierda S = Γρ (Γ < 0), derecha toy model; punteado: estado ΛCDM inicial.
+% 10-12 s: estado final fijo.
+% Compilar y armar el video: ./hacer_video.sh --todo
+\documentclass{beamer}
+% página del tamaño exacto de la figura (24.4 x 5.65 unidades, x = 0.6 cm)
+\geometry{paperwidth=14.9cm, paperheight=5.9cm}
+\setbeamersize{text margin left=0pt, text margin right=0pt}
+\usepackage{amsmath,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\definecolor{UNAMLightBlue}{RGB}{52, 113, 183}
+\definecolor{UNAMDarkBlue}{RGB}{3, 75, 119}
+\definecolor{UNAMGold}{RGB}{228, 172, 36}
+\definecolor{myred}{RGB}{180,30,30}
+\setbeamertemplate{navigation symbols}{}
+\newcommand{\animpanel}[5]{%
+  \begin{scope}[shift={(#1,0)}]
+    \node[font=\large, text=UNAMDarkBlue] at (5,2.55) {\ifnum\ph=1 $S=0$\else #5\fi};
+    \fill[UNAMLightBlue!25] (0,0) -- plot[domain=0:10, samples=90] (\x,{#3*(1+dl(\x,#2))}) -- (10,0) -- cycle;
+    \ifnum\ph=2
+      \draw[black!55, thick, dashed] plot[domain=0:10, samples=90] (\x,{1+dl(\x,\Aref)});
+    \fi
+    \draw[UNAMDarkBlue, very thick] plot[domain=0:10, samples=90] (\x,{#3*(1+dl(\x,#2))});
+    \draw[UNAMGold, thick] (0,#3) -- (10,#3) node[right, font=\small] {$\bar\rho$};
+    \draw[gray] (0,0) -- (10,0);
+    \node[left] at (0,1) {$\rho$};
+    \ifnum\ph=2
+      \foreach \xx in {0.6,1.6,...,9.6} {
+        \pgfmathsetmacro{\yy}{#3*(1+dl(\xx,#2))}
+        \pgfmathsetmacro{\Ln}{(#4==1 ? -0.3*\yy : -0.9*dl(\xx,#2))*\amt}
+        \pgfmathtruncatemacro{\ok}{abs(\Ln)>0.03}
+        \ifnum\ok=1
+          \draw[-{Stealth}, myred, thick] (\xx,{\yy+0.08*sign(\Ln)}) -- ++(0,\Ln);
+        \fi
+      }
+    \fi
+    \begin{scope}[yshift=-1.5cm, y=1.1cm]
+      \draw[gray] (0,0) -- (10,0);
+      \ifnum\ph=2
+        \draw[black!55, thick, dashed] plot[domain=0:10, samples=90] (\x,{dl(\x,\Aref)});
+      \fi
+      \draw[UNAMLightBlue, very thick] plot[domain=0:10, samples=90] (\x,{dl(\x,#2)});
+      \node[left] at (0,0) {$\delta$};
+    \end{scope}
+  \end{scope}}
+
+% Un cuadro de la animación en el tiempo #1 (s).
+\newcommand{\animframe}[1]{%
+  \pgfmathsetmacro{\t}{#1}%
+  \pgfmathsetmacro{\pa}{min(1,\t/4)}%
+  \pgfmathsetmacro{\ea}{\pa*\pa*(3-2*\pa)}%
+  \pgfmathsetmacro{\pb}{max(0,min(1,(\t-4)/6))}%
+  \pgfmathsetmacro{\eb}{\pb*\pb*(3-2*\pb)}%
+  \pgfmathtruncatemacro{\ph}{\t<4 ? 1 : 2}%
+  \pgfmathsetmacro{\Aref}{\t<4 ? 0.1+0.4*\ea : 0.5}%
+  \pgfmathsetmacro{\AR}{\t<4 ? \Aref : 0.5-0.2*\eb}%
+  \pgfmathsetmacro{\RL}{1-0.4*\eb}%
+  \pgfmathsetmacro{\amt}{max(0,min(1,min((\t-4)/0.5,(10-\t)/0.5)))}%
+  \begin{tikzpicture}[x=0.6cm, y=1.0cm,
+      declare function={dl(\x,\a)=\a*(0.8*sin(60*\x)+0.45*sin(140*\x+60));}]
+    \path (-1.2,-2.7) rectangle (23.2,2.95);
+    \animpanel{0}{\Aref}{\RL}{1}{$S=\Gamma\rho,\ \Gamma<0$}
+    \animpanel{12.5}{\AR}{1}{2}{$S=-gH\bar\rho\,\delta$}
+  \end{tikzpicture}}
+
+
+\begin{document}
+% 241 cuadros: t = 0, 1/24, ..., 10 s. Los 2 s finales los agrega hacer_video.sh repitiendo el último.
+\foreach \i in {0,...,240}{%
+  \begin{frame}[plain]
+    \centering
+    \animframe{\i/24}%
+  \end{frame}
+}
+\end{document}
