@@ -1,0 +1,54 @@
+% SPDX-License-Identifier: CC-BY-4.0
+%
+% Tema de color UNAM para Beamer.
+% Adaptado del tema UVT de Alexandru Fikl (https://github.com/alexfikl/uvt-beamer, v0.4).
+
+\def\fileversion{v1.0}
+\def\filedate{2026/11/18}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemeunam}[\filedate \fileversion UNAM Beamer Color Theme]
+
+% <<< colores
+
+\RequirePackage{xcolor}
+
+\definecolor{UNAMLightBlue}{RGB}{52, 113, 183}
+\definecolor{UNAMDarkBlue}{RGB}{3, 75, 119}
+\definecolor{UNAMGold}{RGB}{228, 172, 36}
+
+\definecolor{UNAMBeamerBlue}{RGB}{195, 232, 251}
+\definecolor{UNAMBeamerGray}{RGB}{246, 246, 246}
+\definecolor{UNAMBeamerDarkGray}{RGB}{182, 182, 182}
+
+% >>>
+
+% <<< estilos
+
+\setbeamercolor{title}{fg=white, bg= , parent=normal text}
+\setbeamercolor{titlelike}{fg= , bg= , parent=normal text}
+\setbeamercolor{author}{use=normal text, bg= , parent=normal text}
+\setbeamercolor{date}{use=normal text, bg= , parent=normal text}
+\setbeamercolor{institute}{use=normal text, parent=normal text}
+
+\setbeamercolor{section title}{fg=white, use=title}
+\setbeamercolor{frametitle}{fg=UNAMDarkBlue, use=titlelike}
+
+\setbeamercolor{footline hline}{bg=UNAMBeamerGray}
+\setbeamercolor{header hline}{bg=UNAMBeamerGray}
+
+\setbeamercolor{page number in head/foot}{fg=UNAMBeamerDarkGray}
+\setbeamercolor{url text}{fg=UNAMDarkBlue}
+
+\setbeamercolor{block title}{fg=UNAMDarkBlue}
+\setbeamercolor{alerted text}{fg=UNAMGold}
+\setbeamercolor{example text}{fg=UNAMLightBlue}
+
+\setbeamercolor{enumerate item}{fg=UNAMGold, parent=normal text}
+\setbeamercolor{description item}{fg=UNAMGold, parent=normal text}
+
+\setbeamercolor{caption}{fg=UNAMBeamerGray!50!black, parent=normal text}
+
+% >>>
+
+%% vim: foldmarker=<<<,>>>:foldmethod=marker:nospell:filetype=tex

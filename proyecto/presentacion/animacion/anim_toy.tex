@@ -68,12 +68,14 @@
   \end{tikzpicture}}
 
 
+\providecommand\fps{24}   % cuadros por segundo; hacer_video.sh lo define al compilar
+\pgfmathtruncatemacro\ultimo{12*\fps}
 \begin{document}
-% 241 cuadros: t = 0, 1/24, ..., 10 s. Los 2 s finales los agrega hacer_video.sh repitiendo el último.
-\foreach \i in {0,...,240}{%
+% 12 s: t = 0, 1/fps, ..., 12 s. Desde t = 10 s el estado ya no cambia (2 s finales fijos).
+\foreach \i in {0,...,\ultimo}{%
   \begin{frame}[plain]
     \centering
-    \animframe{\i/24}%
+    \animframe{\i/\fps}%
   \end{frame}
 }
 \end{document}

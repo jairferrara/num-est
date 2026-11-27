@@ -1,0 +1,5 @@
+\contentsline {todo}{\fcolorbox {yellow!45!orange}{yellow!65}{\textcolor {yellow!65}{o}}\ \textbf {TODO:} elegir y actualizar el título del beamer (también el subtítulo y la fecha).}{1}{}%
+\contentsline {todo}{\fcolorbox {orange!70!black}{orange!35}{\textcolor {orange!35}{o}}\ Incluir una motivación para el trabajo estadístico y para el modelo cosmológico.}{4}{}%
+\contentsline {todo}{\fcolorbox {orange!70!black}{orange!35}{\textcolor {orange!35}{o}}\ Averiguar si lo que se ve de DESI en la figura de Camphuis es solo BAO o \emph {full shape}.}{4}{}%
+\contentsline {todo}{\fcolorbox {orange!70!black}{orange!35}{\textcolor {orange!35}{o}}\ Hacer pruebas cambiando $g_0$, $z_t$ y $\Delta z$ para ver cómo afectan los resultados.}{9}{}%
+\contentsline {todo}{\fcolorbox {orange!70!black}{orange!35}{\textcolor {orange!35}{o}}\ Revisar que $P_{\rm dil}$ ($k$) y $\hat \xi $ ($r$) se estudien en el mismo espacio; estudiar ambos en $r$ y en $k$.}{12}{}%

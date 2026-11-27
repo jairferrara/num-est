@@ -1,0 +1,8 @@
+# Datos y bitácoras de los jobs de Slurm: pesan GB (xi_estimadores_N50000.npz sola pasa el límite de
+# 100 MB de GitHub). Viven en Perlmutter, en proyecto/slurm/datos/ (ver proyecto/slurm/LEEME.md).
+proyecto/slurm/datos/
+proyecto/slurm/datos_prueba/
+proyecto/slurm/logs/
+*.tmp
+*.lock
+__pycache__/

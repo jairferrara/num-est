@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.19)  25 NOV 2026 09:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.19)  27 NOV 2026 14:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1064,7 +1064,7 @@ Package: physics
 \sympureletters=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 86.
+ut line 37.
 
 (/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
 6a21df/texmf-dist/tex/latex/tools/bm.sty
@@ -1140,27 +1140,47 @@ File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
 6a21df/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryposit
 ioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
+6a21df/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshado
+ws.code.tex
+File: tikzlibraryshadows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
+6a21df/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfadin
+gs.code.tex
+File: tikzlibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
+6a21df/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code.tex
+File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
+6a21df/texmf-dist/tex/latex/todonotes/todonotes.sty
+Package: todonotes 2024/01/05 v1.1.7 Todonotes source and documentation.
+Package: todonotes 2024/01/05
+\c@@todonotes@numberoftodonotes=\count368
 ) (./dilution.aux)
 \openout1 = `dilution.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1200,16 +1220,16 @@ LaTeX Font Info:    ... okay on input line 131.
 (/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
 6a21df/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count368
+\scratchcounter=\count369
 \scratchdimen=\dimen351
 \scratchbox=\box91
-\nofMPsegments=\count369
-\nofMParguments=\count370
+\nofMPsegments=\count370
+\nofMParguments=\count371
 \everyMPshowfont=\toks54
-\MPscratchCnt=\count371
+\MPscratchCnt=\count372
 \MPscratchDim=\dimen352
-\MPnumerator=\count372
-\makeMPintoPDFobject=\count373
+\MPnumerator=\count373
+\makeMPintoPDFobject=\count374
 \everyMPtoPDFconversion=\toks55
 )
 (/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
@@ -1232,78 +1252,78 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 131.
+Package hyperref Info: Link coloring OFF on input line 114.
  (./dilution.out)
 (./dilution.out)
 \@outlinefile=\write5
 \openout5 = `dilution.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 131.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 114.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 131.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 114.
 \symnumbers=\mathgroup11
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 131.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 114.
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `pureletters' in the math version `normal' on input line 13
-1.
+(Font)              `pureletters' in the math version `normal' on input line 11
+4.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/mathkerncmss/m/sl --> T1/phv/m/it on input line 131
+(Font)                  OT1/mathkerncmss/m/sl --> T1/phv/m/it on input line 114
 .
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `pureletters' in the math version `bold' on input line 131.
+(Font)              `pureletters' in the math version `bold' on input line 114.
 
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/bx/sl --> T1/phv/m/it on input line 13
-1.
+(Font)                  OT1/mathkerncmss/bx/sl --> T1/phv/m/it on input line 11
+4.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 131.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 131.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 131.
+(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 114.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 114.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/phv/m/n on input line 131.
+(Font)                  OT1/cmss/m/n --> T1/phv/m/n on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> T1/phv/m/n on input line 131.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 131.
+(Font)                  OT1/cmss/bx/n --> T1/phv/m/n on input line 114.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> T1/phv/m/it on input line 131.
+(Font)                  OT1/cmr/m/it --> T1/phv/m/it on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> T1/phv/m/it on input line 131.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 131.
+(Font)                  OT1/cmr/bx/it --> T1/phv/m/it on input line 114.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 131.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 131.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 114.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 131.
+(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 114.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 131.
+(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 131.
+(Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/phv/b/n --> T1/phv/b/n on input line 131.
+(Font)                  T1/phv/b/n --> T1/phv/b/n on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 131.
+(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 131.
+(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 114.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 131.
-LaTeX Font Info:    Redeclaring symbol font `boldpureletters' on input line 131
+(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 114.
+LaTeX Font Info:    Redeclaring symbol font `boldpureletters' on input line 114
 .
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
 (Font)              `boldpureletters' in the math version `normal' on input lin
-e 131.
+e 114.
 LaTeX Font Info:    Overwriting symbol font `boldpureletters' in version `norma
 l'
 (Font)                  OT1/mathkerncmss/bx/sl --> T1/phv/bx/it on input line 1
-31.
+14.
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
 (Font)              `boldpureletters' in the math version `bold' on input line 
-131.
+114.
 LaTeX Font Info:    Overwriting symbol font `boldpureletters' in version `bold'
 
 (Font)                  OT1/mathkerncmss/bx/sl --> T1/phv/bx/it on input line 1
-31.
+14.
 
 (/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
 6a21df/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
@@ -1333,22 +1353,29 @@ Dictionary: translator-numbers-dictionary, Language: English
 6a21df/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.di
 ct
 Dictionary: translator-theorem-dictionary, Language: English 
-) (./dilution.nav)
-<assets/unam-logo.png, id=55, 497.86pt x 128.48pt>
+)
+
+Package todonotes Warning: The length marginparwidth is less than 2cm and will 
+most likely cause issues with the appearance of inserted todonotes. The issue c
+an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to 
+loading the todonotes package. on input line 114.
+
+(./dilution.nav)
+<assets/unam-logo.png, id=83, 497.86pt x 128.48pt>
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 131.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 114.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 133.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 117.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
-<assets/unam-escudo-gris.png, id=59, 309.155pt x 210.7875pt>
+<assets/unam-escudo-gris.png, id=87, 309.155pt x 210.7875pt>
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 133.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 117.
 (pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [1
 
@@ -1358,541 +1385,644 @@ rsc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist/fonts/enc
 /dvips/base/8r.enc} <./assets/unam-escudo-gris.png>]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 140.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 124.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-
-
-File: assets/unam-escudo-gris.png Graphic file (type png)
-<use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 140.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
-[2
-
-]
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 157.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-<images/spt3g_fig25_hord.pdf, id=78, 239.6955pt x 239.6955pt>
-File: images/spt3g_fig25_hord.pdf Graphic file (type pdf)
-<use images/spt3g_fig25_hord.pdf>
-Package pdftex.def Info: images/spt3g_fig25_hord.pdf  used on input line 157.
-(pdftex.def)             Requested size: 189.5pt x 189.49675pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 157
-.
+ (./dilution.tdo
+LaTeX Font Info:    Trying to load font information for U+msa on input line 1.
 
 (/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
 6a21df/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 157
-.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 1.
 
 (/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
 6a21df/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <6> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <8> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <8> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <6> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 157.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <6> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 157.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <5> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <7> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <7> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <5> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <5> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 1.
+)
+\tf@tdo=\write6
+\openout6 = `dilution.tdo'.
 
-Overfull \vbox (1.6617pt too high) detected at line 157
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 124.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 124.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+[2
+
+{/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
+6a21df/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./assets/unam-logo
+.png>]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 131.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 131.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
+[3
+
+]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 152.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+<images/spt3g_fig25_hord.pdf, id=117, 239.6955pt x 239.6955pt>
+File: images/spt3g_fig25_hord.pdf Graphic file (type pdf)
+<use images/spt3g_fig25_hord.pdf>
+Package pdftex.def Info: images/spt3g_fig25_hord.pdf  used on input line 152.
+(pdftex.def)             Requested size: 189.5pt x 189.49675pt.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <6> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <8> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <8> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <6> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <6> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 152.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 152.
+
+Overfull \vbox (1.6617pt too high) detected at line 152
  []
 
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 157.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 152.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 157.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 152.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-[3
-
- <./assets/unam-logo.png> <./images/spt3g_fig25_hord.pdf>]
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 160.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-
-
-File: assets/unam-escudo-gris.png Graphic file (type png)
-<use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 160.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [4
 
-]
+ <./images/spt3g_fig25_hord.pdf>]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 200.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 155.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <12> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <12> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 200.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 200.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 200.
-(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 200.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 155.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [5
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 222.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 195.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 222.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <5> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 222.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <9> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 222.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <9> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 222.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <5> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 222.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <5> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 222.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <17.28> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 195.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 195.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <17.28> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 195.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <17.28> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 195.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <12> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 195.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <12> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 195.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 222.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 195.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 222.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 195.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [6
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 249.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 217.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-<images/toy_gz.pdf, id=147, 375.804pt x 245.718pt>
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <9> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 217.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <9> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 217.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 217.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 217.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+[7
+
+]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 244.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+<images/toy_gz.pdf, id=184, 375.804pt x 245.718pt>
 File: images/toy_gz.pdf Graphic file (type pdf)
 <use images/toy_gz.pdf>
-Package pdftex.def Info: images/toy_gz.pdf  used on input line 249.
+Package pdftex.def Info: images/toy_gz.pdf  used on input line 244.
 (pdftex.def)             Requested size: 223.15053pt x 145.90594pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 249.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 244.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 249.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 244.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-[7
+[8
 
  <./images/toy_gz.pdf>]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 283.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 281.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 283.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <7> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 283.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <7> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 283.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 283.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 281.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 283.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 281.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-[8
+[9
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 302.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 300.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 302.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 300.
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 302.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 300.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 302.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 300.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 302.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 300.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 302.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 300.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-[9
-
-{/global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab7
-6a21df/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 305.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-
-
-File: assets/unam-escudo-gris.png Graphic file (type png)
-<use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 305.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [10
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 336.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 303.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 336.
-(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 336.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 303.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [11
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 351.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 342.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 351.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 342.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 351.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 342.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [12
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 354.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 357.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 354.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 357.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 357.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [13
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 366.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 360.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 366.
-(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 366.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 360.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [14
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 376.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 372.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 376.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 372.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 376.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 372.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [15
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 379.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 382.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 379.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 382.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 382.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [16
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 403.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 385.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 403.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 403.
-(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 403.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 385.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [17
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 406.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 409.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 409.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 406.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 409.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 409.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [18
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 428.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 412.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 428.
-(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 428.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 412.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [19
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 441.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 434.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 441.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 434.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 441.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 434.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [20
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 444.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 437.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 444.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 437.
 (pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [21
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 469.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 444.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+<../reporte/images/xi_promedio.png, id=325, 1068.1506pt x 416.9979pt>
+File: ../reporte/images/xi_promedio.png Graphic file (type png)
+<use ../reporte/images/xi_promedio.png>
+Package pdftex.def Info: ../reporte/images/xi_promedio.png  used on input line 
+444.
+(pdftex.def)             Requested size: 402.16907pt x 157.00374pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 469.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 444.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 469.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 444.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [22
 
-]
+ <../reporte/images/xi_promedio.png>]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 472.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 449.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+<../reporte/images/matrices_correlacion.png, id=334, 1015.3935pt x 523.9575pt>
+File: ../reporte/images/matrices_correlacion.png Graphic file (type png)
+<use ../reporte/images/matrices_correlacion.png>
+Package pdftex.def Info: ../reporte/images/matrices_correlacion.png  used on in
+put line 449.
+(pdftex.def)             Requested size: 304.24855pt x 156.99658pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 472.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
-[23
-
-]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\translate ' on input line 477.
-
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 478.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-
-
-File: assets/unam-escudo-gris.png Graphic file (type png)
-<use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 478.
-(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
-[24
-
-]
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 493.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-
-
-File: assets/unam-escudo-gris.png Graphic file (type png)
-<use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 493.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 449.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 493.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 449.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+[23
+
+ <../reporte/images/matrices_correlacion.png>]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 454.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+<../reporte/images/varianza_estimadores.png, id=343, 1068.1506pt x 381.5856pt>
+File: ../reporte/images/varianza_estimadores.png Graphic file (type png)
+<use ../reporte/images/varianza_estimadores.png>
+Package pdftex.def Info: ../reporte/images/varianza_estimadores.png  used on in
+put line 454.
+(pdftex.def)             Requested size: 429.12701pt x 153.30112pt.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 454.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 454.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+[24
+
+ <../reporte/images/varianza_estimadores.png>]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 459.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+<../reporte/images/cociente_modelos.png, id=352, 634.5306pt x 416.9979pt>
+File: ../reporte/images/cociente_modelos.png Graphic file (type png)
+<use ../reporte/images/cociente_modelos.png>
+Package pdftex.def Info: ../reporte/images/cociente_modelos.png  used on input 
+line 459.
+(pdftex.def)             Requested size: 238.90692pt x 157.00374pt.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 459.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 459.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [25
 
-]
+ <../reporte/images/cociente_modelos.png>]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 507.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 462.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 507.
-(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
-File: assets/unam-logo.png Graphic file (type png)
-<use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 507.
-(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 462.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
 [26
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 521.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 487.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 521.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 487.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 521.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 487.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 [27
 
 ]
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 533.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 490.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
 
 
-Package multimedia Warning: The movie file ``animacion_toy.mp4'' could not be f
-ound in the current directory, where it must reside for viewing. on input line 
-533.
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 490.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
+[28
 
-<images/animacion_poster.png, id=342, 424.33762pt x 167.96698pt>
+]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\translate ' on input line 495.
+
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 496.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 496.
+(pdftex.def)             Requested size: 187.79175pt x 128.0374pt.
+[29
+
+]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 511.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 511.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 511.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+[30
+
+]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 525.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 525.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 525.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+[31
+
+]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 539.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+
+
+File: assets/unam-escudo-gris.png Graphic file (type png)
+<use assets/unam-escudo-gris.png>
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 539.
+(pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 539.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+[32
+
+]
+File: assets/unam-logo.png Graphic file (type png)
+<use assets/unam-logo.png>
+Package pdftex.def Info: assets/unam-logo.png  used on input line 551.
+(pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
+<images/animacion_poster.png, id=416, 424.33762pt x 167.96698pt>
 File: images/animacion_poster.png Graphic file (type png)
 <use images/animacion_poster.png>
-Package pdftex.def Info: images/animacion_poster.png  used on input line 533.
+Package pdftex.def Info: images/animacion_poster.png  used on input line 551.
 (pdftex.def)             Requested size: 429.13211pt x 169.87341pt.
 
 
 File: assets/unam-escudo-gris.png Graphic file (type png)
 <use assets/unam-escudo-gris.png>
-Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 533.
+Package pdftex.def Info: assets/unam-escudo-gris.png  used on input line 551.
 (pdftex.def)             Requested size: 115.23286pt x 78.56909pt.
 File: assets/unam-logo.png Graphic file (type png)
 <use assets/unam-logo.png>
-Package pdftex.def Info: assets/unam-logo.png  used on input line 533.
+Package pdftex.def Info: assets/unam-logo.png  used on input line 551.
 (pdftex.def)             Requested size: 91.04742pt x 23.49591pt.
-[28
+[33
 
  <./images/animacion_poster.png>]
-\tf@nav=\write6
-\openout6 = `dilution.nav'.
+\tf@nav=\write7
+\openout7 = `dilution.nav'.
 
-\tf@toc=\write7
-\openout7 = `dilution.toc'.
+\tf@toc=\write8
+\openout8 = `dilution.toc'.
 
-\tf@snm=\write8
-\openout8 = `dilution.snm'.
+\tf@snm=\write9
+\openout9 = `dilution.snm'.
 
  (./dilution.aux)
  ***********
@@ -1900,16 +2030,16 @@ LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
 Package rerunfilecheck Info: File `dilution.out' has not changed.
-(rerunfilecheck)             Checksum: 887E224303EAAA4C97EC560816280D26;1305.
+(rerunfilecheck)             Checksum: 011F37A13B23795D274CA0D08AE68D08;1400.
  ) 
 Here is how much of TeX's memory you used:
- 29545 strings out of 473330
- 605368 string characters out of 5676676
- 958099 words of memory out of 5000000
- 51954 multiletter control sequences out of 15000+600000
- 685405 words of font info for 194 fonts, out of 8000000 for 9000
+ 30068 strings out of 473330
+ 619813 string characters out of 5676676
+ 971837 words of memory out of 5000000
+ 52447 multiletter control sequences out of 15000+600000
+ 688092 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,16n,123p,383b,1015s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,16n,123p,383b,1298s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0a
 b76a21df/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></global/common/s
 oftware/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist
@@ -1939,22 +2069,23 @@ ive/2024-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb></global/common/software/nersc9/texlive/2024-17c650b50c0
 5ee823c6093081103ed0ab76a21df/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.
 pfb></global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed
-0ab76a21df/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></global/common/
+0ab76a21df/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></global/common/
 software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dis
-t/fonts/type1/public/cm-super/sfrm0800.pfb></global/common/software/nersc9/texl
+t/fonts/type1/public/cm-super/sfrm0700.pfb></global/common/software/nersc9/texl
 ive/2024-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist/fonts/type1/public
-/cm-super/sfrm1095.pfb></global/common/software/nersc9/texlive/2024-17c650b50c0
-5ee823c6093081103ed0ab76a21df/texmf-dist/fonts/type1/public/cm-super/sftt1095.p
+/cm-super/sfrm0800.pfb></global/common/software/nersc9/texlive/2024-17c650b50c0
+5ee823c6093081103ed0ab76a21df/texmf-dist/fonts/type1/public/cm-super/sfrm1095.p
 fb></global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0
-ab76a21df/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></global/common/softwa
-re/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist/font
-s/type1/urw/helvetic/uhvr8a.pfb></global/common/software/nersc9/texlive/2024-17
-c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist/fonts/type1/urw/helvetic/uhvr
-o8a.pfb>
-Output written on dilution.pdf (28 pages, 736025 bytes).
+ab76a21df/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></global/common/s
+oftware/nersc9/texlive/2024-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist
+/fonts/type1/urw/helvetic/uhvb8a.pfb></global/common/software/nersc9/texlive/20
+24-17c650b50c05ee823c6093081103ed0ab76a21df/texmf-dist/fonts/type1/urw/helvetic
+/uhvr8a.pfb></global/common/software/nersc9/texlive/2024-17c650b50c05ee823c6093
+081103ed0ab76a21df/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on dilution.pdf (33 pages, 950480 bytes).
 PDF statistics:
- 454 PDF objects out of 1000 (max. 8388607)
- 311 compressed objects within 4 object streams
- 67 named destinations out of 1000 (max. 500000)
- 162 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 533 PDF objects out of 1000 (max. 8388607)
+ 354 compressed objects within 4 object streams
+ 78 named destinations out of 1000 (max. 500000)
+ 286 words of extra memory for PDF output out of 10000 (max. 10000000)
 

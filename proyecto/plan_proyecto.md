@@ -47,7 +47,7 @@ L, Nmesh = 1000.0, 128        # Mpc/h, malla 128³
 r_edges  = arange(20, 155, 5) # Mpc/h (incluye el BAO ~ 105)
 
 # realizaciones y catálogos
-N       = 60–100              # realizaciones por modelo (el conteo de pares es lo caro)
+N       = 20 000–50 000       # realizaciones por modelo, en Slurm (ver sección 10)
 nbar    = 5e-5                # (h/Mpc)³ → N_D ≈ 5e4 puntos por caja
 alphas  = [1, 3]              # N_R = α N_D
 # la misma semilla s para g0 = 0 y g0 = 0.2 (reduce el ruido en la comparación)
@@ -80,14 +80,14 @@ P_dil  = (D_dil(z_obs) / D_LCDM(z_obs))**2 * P_L(k, z_obs)
 ## 3. Paso 2: campos gaussianos y catálogos
 
 ```python
-def campo_gaussiano(P, L, Nmesh, seed):
-    w = ruido_blanco_complejo(seed)                 # con δ(−k) = δ*(k)
-    delta_k = sqrt(P(|k|) * V) * w
-    return irfft(delta_k)                           # δ(x) en la malla
+def campo_gaussiano(P, rng):
+    w = rng.standard_normal((Nmesh,)*3)             # ruido blanco REAL en la malla: δ(−k) = δ*(k) sale sola
+    delta_k = rfftn(w) * sqrt(P(|k|) / V_celda)     # δ(k) = sqrt(P/V_celda) · FFT[w]
+    return irfftn(delta_k)                          # δ(x) en la malla
 
-def puntos(delta, nbar, seed):
-    # densidad positiva: 1 + δ → exp(δ_G − σ²/2)  (el δ gaussiano puede ser < −1)
-    # conteo por celda ~ Poisson[nbar · V_celda · (1 + δ)]; posiciones uniformes dentro de la celda
+def puntos(delta, rng):
+    # densidad positiva (lognormal): 1 + δ → exp(δ − σ²/2)  (el δ gaussiano puede ser < −1)
+    # conteo por celda ~ Poisson[nbar · V_celda · exp(δ − σ²/2)]; posiciones uniformes dentro de la celda
     return posiciones                               # catálogo D, periódico
 
 def aleatorios(alpha, nbar):
@@ -178,12 +178,37 @@ comparar(C)
 | 24–25 nov | Crecimiento y P_dil validados; campos y catálogos |
 | **25 nov** | **Reunión de avance** |
 | 26–28 nov | Conteo de pares y los cuatro estimadores; N realizaciones |
+| 27–29 nov | Datos para extensiones en Slurm (3 nodos en preempt, sección 10) |
 | 29 nov–1 dic | Covarianzas, comparaciones y figuras |
 | **2 dic** | **Presentación final** |
 | 3–4 dic | Reporte y limpieza del notebook |
 
 ---
 
-## 10. Nota sobre el notebook actual
+## 10. Datos para extensiones
 
-`covarianza.ipynb` hace más de lo que entra en este alcance: covarianza gaussiana analítica, P̂(k), varios n̄, el estimador natural, ∂C/∂g₀ y el ajuste de amplitud. Para la entrega conviene dejar solo los pasos 1–6 de este plan.
+Por si cambia el enfoque, `slurm/farm.py` genera realizaciones y guarda los conteos de pares crudos (DD, DR y RR en bins de 1 h⁻¹Mpc hasta 150), además de P̂(k) y ξ̂ en la malla del campo gaussiano, del campo lognormal y de los puntos. Con `--independientes` reproduce bit a bit la corrida de N = 50 000. Los datos quedan en `slurm/datos/` y los detalles en `slurm/LEEME.md`.
+
+**Catálogos anidados.** En la corrida de N = 50 000, la semilla común solo comparte el campo gaussiano: el sorteo de Poisson se desfasa entre modelos y su ruido queda prácticamente independiente (correlación de 0.04–0.08 por bin entre modelos). En `farm.py`, por cada semilla hay un solo catálogo madre por caja, con media n̄_madre V_celda max_A e^{δ_A−σ_A²/2} por celda (n̄_madre es el n̄ más alto de esa caja y el máximo corre sobre las amplitudes de `base`). Cada (n̄, A) se queda con cada punto con probabilidad λ/λ_madre, con un mismo uniforme por punto. Cada catálogo sigue siendo Poisson(λ), pero comparten casi todos los puntos entre amplitudes y entre densidades, y con el mismo n̄ y A son idénticos entre configuraciones (`base`, `alpha10` y `aleatorios_nuevos` tienen el mismo catálogo D). Así, las diferencias entre amplitudes, densidades o catálogos aleatorios tienen mucho menos ruido.
+
+**Todo modelo es una amplitud.** A orden lineal y con la forma de P fija, la simulación solo ve A = P_modelo/P_ΛCDM(z = 0.5). Por eso basta una malla en A, y cada (g₀, z_t, Δz, z) se ubica en ella resolviendo D₊:
+
+| Variación | A |
+|---|---|
+| g₀ = 0.05 … 0.5 | 0.945 … 0.575 |
+| z_t = 0.5 … 10 | 0.984 … 0.582 |
+| Δz = 0.05 … 2 | 0.799 … 0.817 |
+| ΛCDM en z = 0 / z = 1 | 1.673 / 0.626 |
+
+**Configuraciones:**
+- base con A ∈ {0.5, 0.6, 0.7, 0.7999, 0.9, 1.0, 1.2, 1.4, 1.7} (N = 20 000);
+- con A ∈ {1, 0.7999}: n̄ = 1, 2 y 5 × 10⁻⁴, aleatorios nuevos en cada realización, α = 10 y L = 500.
+
+**Qué permiten calcular:**
+- cualquier estimador (incluido el natural), binning o α;
+- Ĉ para cualquier modelo interpolando en A, y de ahí ∂C/∂g₀;
+- un ajuste efectivo de C(A) con un polinomio en A. **No** es la separación gaussiana C = A²C^PP + A C^Pn + C^nn: los puntos son lognormales (ξ_pts = e^{Aξ_G} − 1, con términos de 3 y 4 puntos de orden A² y A³), la varianza de Poisson de los pares lleva factores (1 + Aξ) y los estimadores no son lineales. Entre A = 1 y A = 0.8 la diagonal de C cambia ~4 %, pero la parte de C que depende de A es mayor, ~10–20 % (de R ≈ 0.965 = 1 − 0.36 f_PP − 0.2 f_PN). Las correcciones de orden ξ (≈ 4 % en el primer bin) al término de Poisson, que es el ~80–90 % de C, entran lineales en A y son de unos pocos por ciento de C, una fracción apreciable de lo que se leería como C^Pn. Para interpretar los coeficientes hay que compararlos con los términos analíticos o incluir términos de orden A³;
+- la dependencia con n̄, aleatorios fijos contra nuevos y la covarianza de P̂(k);
+- el escalamiento con el volumen (L = 500 contra L = 1000), con una salvedad: con L = 500, k_f = 0.0126 h/Mpc queda debajo del pico de P (k ≈ 0.017), así que faltan modos cerca del máximo. La potencia que falta con k < k_f aporta ~4×10⁻⁴ a ξ, comparable con ξ ≈ 2×10⁻³ del BAO, y ese efecto se mezcla con el de volumen. Además, L500 usa los mismos números del generador acomodados en una malla de 64³, así que su campo no está relacionado con el de L = 1000.
+
+**Qué no cubren:** cambios de forma de P, RSD, no linealidad real, bordes de un survey ni r > 150 h⁻¹Mpc.

@@ -1,0 +1,105 @@
+% SPDX-License-Identifier: CC-BY-4.0
+%
+% Estilo de artículo UNAM (Universidad Nacional Autónoma de México).
+% El texto va en negro; los colores del tema Beamer UNAM se usan solo en los
+% enlaces y quedan disponibles para gráficas.
+%
+% Uso (al final del preámbulo, porque carga hyperref):
+%   \usepackage{unampaper}
+
+\def\fileversion{v1.1}
+\def\filedate{2026/11/27}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{unampaper}[\filedate \fileversion UNAM Paper Style]
+
+% <<< colores (idénticos a beamercolorthemeunam.sty; para enlaces y gráficas)
+
+\RequirePackage{xcolor}
+
+\definecolor{UNAMLightBlue}{RGB}{52, 113, 183}
+\definecolor{UNAMDarkBlue}{RGB}{3, 75, 119}
+\definecolor{UNAMGold}{RGB}{228, 172, 36}
+
+\definecolor{UNAMGray}{RGB}{246, 246, 246}
+\definecolor{UNAMDarkGray}{RGB}{182, 182, 182}
+
+% >>>
+
+% <<< página
+
+\RequirePackage{geometry}
+\geometry{hmargin=2cm, vmargin=2cm}
+
+% párrafos separados por espacio y sin sangría
+\setlength{\parskip}{0.75em}
+\setlength{\parindent}{0em}
+
+% >>>
+
+% <<< título e índice
+
+% \date es opcional: si no se define, no se imprime fecha
+\date{}
+
+\renewcommand{\maketitle}{%
+    \begin{center}
+        {\huge\bfseries\@title\par}
+        \vspace{2.5em}
+        {\large\@author\par}
+        \ifx\@date\@empty\else
+            \vspace{0.5em}
+            {\normalsize\@date\par}
+        \fi
+    \end{center}
+    \vspace{0.5em}
+}
+
+% línea a todo lo ancho
+\newcommand{\unamrule}{\par\noindent\rule{\textwidth}{1pt}\par}
+
+% espacio en el índice para números de página romanos anchos (XVIII)
+\renewcommand{\@pnumwidth}{2.8em}
+\renewcommand{\@tocrmarg}{3.8em}
+
+% índice entre dos líneas (en negro aunque sus entradas sigan siendo enlaces)
+\newcommand{\unamindice}{%
+    \vspace{1.5em}
+    \unamrule
+    {\hypersetup{linkcolor=black}\tableofcontents}
+    \vspace{1em}
+    \unamrule
+    \vspace*{1.5em}
+}
+
+% >>>
+
+% <<< figuras y tablas
+
+\RequirePackage{caption}
+\captionsetup{font=small, labelfont=bf, labelsep=period}
+
+% >>>
+
+% <<< bloques de texto literal (PromptBlock)
+
+% Texto literal que puede continuar de una página a otra.
+\RequirePackage{fancyvrb}
+\DefineVerbatimEnvironment{PromptBlock}{Verbatim}{fontsize=\footnotesize, xleftmargin=0.05\textwidth}
+
+% >>>
+
+% <<< enlaces
+
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkcolor  = UNAMDarkBlue,
+    citecolor  = UNAMDarkBlue,
+    filecolor  = UNAMLightBlue,
+    urlcolor   = UNAMLightBlue,
+}
+
+% >>>
+
+%% vim: foldmarker=<<<,>>>:foldmethod=marker:nospell:filetype=tex

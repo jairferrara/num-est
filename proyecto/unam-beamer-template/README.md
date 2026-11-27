@@ -50,8 +50,10 @@ estar junto al `.tex`.
 | `\unamtitlelogo`   | Logo de la portada y de las portadas de sección          |
 | `\unamslidelogo`   | Marca de agua transparente en cada diapositiva           |
 | `\unammotto`       | Lema en el pie de página (vacío por defecto)             |
+| `\unamurl{url}{texto}` | Enlace del pie de página (por defecto www.unam.mx)   |
+| `\unamtitlelogoshift` | Desplazamiento vertical del logo de la portada (`-0.7cm`) |
 | `\venue`           | Texto debajo de la fecha en la portada                   |
-| `\titleframe`      | Genera la portada                                        |
+| `\titleframe[extra]` | Genera la portada; `extra` se dibuja encima (opcional) |
 
 Cada `\section{}` genera automáticamente una diapositiva de sección.
 

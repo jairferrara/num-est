@@ -10,58 +10,9 @@
 
 % portada: escudo más grande, ocupando el espacio sobre el título
 \unamtitlelogo{\includegraphics[height=0.5\paperheight]{assets/unam-escudo-gris}}
-\makeatletter
-\defbeamertemplate{background}{unamtitlebig}
-{
-    \begin{tikzpicture}[remember picture, overlay]
-        \node [shading=axis, rectangle,
-               left color=UNAMDarkBlue, right color=UNAMLightBlue!70,
-               shading angle=45, anchor=north,
-               minimum width=\paperwidth, minimum height=\paperheight]
-               (box) at (current page.north) {};
-        \node [opacity=0.5, anchor=north, yshift=-0.3cm] at (current page.north)
-            {\unam@titlelogo};
-    \end{tikzpicture}
-}
+\unamtitlelogoshift{-0.3cm}
 % pie de página: GitHub en lugar de www.unam.mx
-\defbeamertemplate{footline}{unamgithub}{
-    \vspace{5pt}
-    \ifunam@progressbar
-    \unam@progressbarwidth=\paperwidth
-    \multiply\unam@progressbarwidth by \insertframenumber
-    \divide\unam@progressbarwidth by \inserttotalframenumber
-    \begin{tikzpicture}[remember picture, overlay]
-    \fill[UNAMGold, anchor=west]
-        (0, -0.3ex) rectangle (\unam@progressbarwidth, 0ex);
-    \end{tikzpicture}%
-    \fi
-    \begin{beamercolorbox}[wd=\textwidth, ht=2.5ex]{footline hline}%
-    \hfill \unam@motto
-    \unam@mottospacing
-
-    \hspace{\beamer@leftmargin}%
-    \usebeamerfont{author in head/foot}\insertshortauthor%
-    \hfill\usebeamercolor[fg]{url text}\usebeamerfont{url text}%
-    \href{https://github.com/jairferrara}{github.com/jairferrara}%
-    \hspace{1.75\beamer@rightmargin}
-    \vspace*{0.75pt}
-    \end{beamercolorbox}
-    \begin{beamercolorbox}[wd=\textwidth, sep=5pt]{footline}%
-        \centering
-        \usebeamertemplate*{frame footer}
-        \usebeamercolor[fg]{page number in head/foot}
-        \usebeamerfont{page number in head/foot}
-        \insertframenumber~/~\inserttotalframenumber
-    \end{beamercolorbox}
-}
-\setbeamertemplate{footline}[unamgithub]
-\makeatother
-\RenewDocumentCommand \titleframe {} {
-    \setbeamertemplate{title page}[unamtitlepage]
-    \setbeamertemplate{background}[unamtitlebig]
-    \frame[plain,noframenumbering]{\titlepage}
-    \setbeamertemplate{background}[unamslide]
-}
+\unamurl{https://github.com/jairferrara}{github.com/jairferrara}
 
 % presentación final: se usan las diapositivas separadoras de sección del tema
 % (versión propuesta: \AtBeginSection{} las desactivaba)
@@ -95,10 +46,42 @@
 
 % gráficos con TikZ
 \usepackage{tikz}
-\usetikzlibrary{fit, backgrounds, arrows.meta, positioning}
+\usetikzlibrary{fit, backgrounds, arrows.meta, positioning, shadows}
+
+% pendientes: \todo[inline]{...}, \missingfigure{...} y \postit{...}
+% Versión final: \usepackage[disable]{todonotes} y desaparecen todos (también los post-its).
+\usepackage[colorinlistoftodos]{todonotes}
+\setuptodonotes{color=orange!35, bordercolor=orange!70!black, size=\footnotesize}
+\tikzset{pendiente/.style={fill=orange!35, draw=orange!70!black, rounded corners=2pt,
+  font=\footnotesize, text=black, align=left, inner sep=5pt}}
+\tikzset{postit/.style={fill=yellow!65, draw=yellow!45!orange, text width=4.4cm,
+  align=left, inner sep=9pt, rotate=-4, font=\small\sffamily, text=black!85,
+  drop shadow={opacity=0.35}}}
+% \postit[<estilo tikz>]{<texto>}: nota adhesiva en la esquina superior derecha de la página.
+% Se registra en la lista de pendientes igual que un \todo y obedece la opción disable.
+\makeatletter
+\newcommand{\postit}[2][]{%
+  \if@todonotes@disabled\else
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[postit, anchor=north east, #1]
+        at ([xshift=-0.6cm, yshift=-0.6cm]current page.north east) {#2};
+    \end{tikzpicture}%
+    \addcontentsline{tdo}{todo}{\fcolorbox{yellow!45!orange}{yellow!65}%
+      {\textcolor{yellow!65}{o}}\ #2}%
+  \fi}
+% \siPendientes{...}: solo se dibuja si todonotes no está en modo disable (p.ej. notas en TikZ).
+\newcommand{\siPendientes}[1]{\if@todonotes@disabled\else#1\fi}
+% \listapendientes: índice de todos los pendientes (\todo, \postit, \registrarPendiente) con su página.
+% Se usa dentro de un frame porque \listoftodos hace un \section*, que choca con Beamer.
+\newcommand{\listapendientes}{\@starttoc{tdo}}
+% \registrarPendiente{<texto>}: agrega <texto> a la lista de pendientes (para notas hechas a mano).
+\newcommand{\registrarPendiente}[1]{\if@todonotes@disabled\else
+  \addcontentsline{tdo}{todo}{\fcolorbox{orange!70!black}{orange!35}%
+    {\textcolor{orange!35}{o}}\ #1}\fi}
+\makeatother
 
 % carpeta de imágenes
-\graphicspath{{images/}}
+\graphicspath{{images/}{../reporte/images/}}   % las figuras de resultados son las mismas del reporte
 
 \definecolor{myblue}{RGB}{30,100,180}
 \definecolor{myred}{RGB}{180,30,30}
@@ -130,7 +113,15 @@
 
 \begin{document}
 
-\titleframe
+\titleframe[\postit{\textbf{TODO:} elegir y actualizar el título del beamer
+  (también el subtítulo y la fecha).}]
+
+% índice de pendientes: no cuenta en la numeración y desaparece con [disable]
+\siPendientes{%
+\begin{frame}[noframenumbering]{Pendientes}
+  \small
+  \listapendientes
+\end{frame}}
 
 % ####################################################################
 % ##########  VERSIÓN FINAL (presentación del proyecto)  ##############
@@ -152,6 +143,10 @@
 
       \vspace{1.5em}
       {\scriptsize Fig.~25 de E.~Camphuis \etal\ (SPT-3G D1),\\ arXiv:2506.20707.}
+
+      \vspace{1em}
+      \todo[inline]{Incluir una motivación para el trabajo estadístico y para el modelo cosmológico.}
+      \todo[inline]{Averiguar si lo que se ve de DESI en la figura de Camphuis es solo BAO o \emph{full shape}.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -280,6 +275,9 @@
     \dilpanel{0.5}{1}{}{}{$S=0$}\hspace{0.8cm}%
     \dilpanel{0.5}{0.6}{0.5}{1}{$S=\Gamma\rho,\ \Gamma<0$}\hspace{0.8cm}%
     \dilpanel{0.25}{1}{0.5}{1}{$S=-gH\bar\rho\,\delta$}}
+
+  \vspace{0.4em}
+  \todo[inline]{Hacer pruebas cambiando $g_0$, $z_t$ y $\Delta z$ para ver cómo afectan los resultados.}
 \end{frame}
 
 % ---- 5. ecuaciones a resolver ----
@@ -332,7 +330,15 @@
     \draw[arr, mypurple] (class.north east) -- node[right, font=\small] {$P_L(k)$} (pdil.south);
     \draw[-{Stealth}, thick, myorange] (est.north) to[out=135, in=45, looseness=1.1]
       node[above, font=\small] {$N$ realizaciones} (field.north);
+    \siPendientes{%
+      \node[pendiente, text width=6.4cm] (tdk) at (9.8,-2.75)
+        {Revisar que $P_{\rm dil}$ (en $k$) y $\hat\xi$ (en $r$) se estudien en el mismo
+         espacio: ¿qué cambia al estudiar uno en $k$ y el otro en $r$? Estudiar ambos en $r$ y en $k$.};
+      \draw[orange!70!black, thick, dashed] (tdk.north west) -- (pdil.south east);
+      \draw[orange!70!black, thick, dashed] (tdk.north east) -- (est.south);}
   \end{tikzpicture}}
+  \registrarPendiente{Revisar que $P_{\rm dil}$ ($k$) y $\hat\xi$ ($r$) se estudien en el mismo
+    espacio; estudiar ambos en $r$ y en $k$.}
 \end{frame}
 
 % ---- 2. qué se busca ----
@@ -387,13 +393,13 @@
     \node[fill=black!3, inner sep=9pt, text width=0.86\textwidth,
           font=\ttfamily, align=left] (code) {%
       cosmo = CLASS(cosmología)                    \cm{ P\_L(k), H(z)}\\
+      R = aleatorios($\alpha$);  RR = contar\_pares(R)   \cm{ R fijo}\\
       \kw{for} g0 \kw{in} [0, 0.2]:\\
       \hspace*{2em}Dp = crecimiento(g0, cosmo)\\
       \hspace*{2em}Pdil = (Dp / Dp\_LCDM)**2 * P\_L\\
       \hspace*{2em}\kw{for} s \kw{in} 1..N:\\
-      \hspace*{4em}delta = campo\_gaussiano(Pdil, L)\\
-      \hspace*{4em}D, R  = puntos(delta), aleatorios()\\
-      \hspace*{4em}DD, DR, RR = contar\_pares(D, R)\\
+      \hspace*{4em}D = puntos(campo\_gaussiano(Pdil, s))\\
+      \hspace*{4em}DD, DR = contar\_pares(D, R)\\
       \hspace*{4em}\kw{for} est \kw{in} [PH, DP, Ham, LS]:\\
       \hspace*{6em}xi[g0, est, s] = est(DD, DR, RR)\\
       \hspace*{2em}C[g0, est] = cov(xi[g0, est, :])     \cm{ para cada est}\\
@@ -421,23 +427,35 @@
       \end{itemize}
     \item Diferencias entre estimadores.
       \begin{itemize}
-        \item Con aleatorios finitos, el ruido de DR y RR entra distinto en cada estimador;
-          se compara variando $\alpha=N_R/N_D$.
+        \item Con R fijo, RR no aporta varianza, solo sesgo; el ruido de DR entra distinto en cada
+          estimador. Se compara variando $\alpha=N_R/N_D$.
       \end{itemize}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Figuras}
+% ====================================================
+\section{Resultados}
+% ====================================================
+% Figuras de la corrida con N = 5x10^4 por modelo (las genera covarianza.ipynb en reporte/images/).
+
+\begin{frame}{$\langle\hat\xi(r)\rangle$}
   \centering
-  \begin{tikzpicture}[
-      ph/.style={draw=myblue, thick, dashed, rounded corners, fill=myblue!5,
-        minimum width=6.2cm, minimum height=2.7cm, text width=5.8cm, align=center}]
-    % TODO: reemplazar cada recuadro por la figura correspondiente del notebook
-    \node[ph] at (0,   3.1) {$\langle\hat\xi(r)\rangle$, \ $g_0=0$ y $g_0=0.2$};
-    \node[ph] at (6.8, 3.1) {Matrices de correlación};
-    \node[ph] at (0,   0)   {$\mathrm{Var}[\hat\xi]$ por estimador};
-    \node[ph] at (6.8, 0)   {$\hat C_{\rm dil}$ vs.\ $\hat C_{\Lambda{\rm CDM}}$};
-  \end{tikzpicture}
+  \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{xi_promedio}
+\end{frame}
+
+\begin{frame}{Correlación}
+  \centering
+  \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{matrices_correlacion}
+\end{frame}
+
+\begin{frame}{Estimadores}
+  \centering
+  \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{varianza_estimadores}
+\end{frame}
+
+\begin{frame}{Dilución}
+  \centering
+  \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{cociente_modelos}
 \end{frame}
 
 % ====================================================
@@ -510,8 +528,8 @@
   \begin{itemize}
     \setlength\itemsep{0.8em}
     \item Campo gaussiano: \
-      $\delta(\mathbf k) = \sqrt{P(k)\,V}\;w(\mathbf k)$, \ $w$ ruido blanco complejo con
-      $\delta(-\mathbf k)=\delta^*(\mathbf k)$.
+      $\delta(\mathbf k) = \sqrt{P(k)/V_{\rm celda}}\;\mathrm{FFT}[w](\mathbf k)$, \ $w$ ruido blanco real en la malla.
+    \item Puntos: Poisson con media \ $\bar n\,V_{\rm celda}\,e^{\delta-\sigma^2/2}$ \ por celda.
     \item Toda su estadística está en $P(k)$ (o en $\xi$):
       \[
         \xi(r) = \int_0^\infty \frac{k^2\,dk}{2\pi^2}\,P(k)\,j_0(kr).
@@ -522,14 +540,14 @@
 
 % Animación del toy model como video (pympress la reproduce con el paquete multimedia).
 % Los cuadros se generan en animacion/anim_toy.tex y el video con animacion/hacer_video.sh.
-% El PDF solo apunta a animacion_toy.mp4: el video debe estar junto a dilution.pdf al presentar.
+% El PDF solo apunta a animacion_toy.webm (VP9): el video debe estar junto a dilution.pdf al presentar.
 % 0-4 s sin dilución; 4-10 s actúa solo la fuente (izquierda S = Γρ con Γ < 0, derecha toy model),
 % con el estado ΛCDM inicial en punteado; 10-12 s estado final fijo.
 \begin{frame}{Animación}
   \centering
   \vspace{0.6em}
   \movie[width=\textwidth, height=0.396\textwidth, autostart, loop]
-    {\includegraphics[width=\textwidth]{animacion_poster}}{animacion_toy.mp4}
+    {\includegraphics[width=\textwidth]{animacion_poster}}{animacion_toy.webm}
 \end{frame}
 
 % ####################################################################

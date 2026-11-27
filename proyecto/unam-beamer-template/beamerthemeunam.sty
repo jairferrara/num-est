@@ -73,6 +73,8 @@
 \ProvideDocumentCommand \unammotto { m } {\def\unam@motto{#1}}
 \ProvideDocumentCommand \unamtitlelogo { m } {\def\unam@titlelogo{#1}}
 \ProvideDocumentCommand \unamslidelogo { m } {\def\unam@slidelogo{#1}}
+\ProvideDocumentCommand \unamtitlelogoshift { m } {\def\unam@titlelogoshift{#1}}
+\ProvideDocumentCommand \unamurl { m m } {\def\unam@url{#1}\def\unam@urltext{#2}}
 
 \ProvideDocumentCommand \venue { m } {\def\unam@venue{#1}}
 
@@ -84,6 +86,8 @@
 \unammotto{}
 \unamtitlelogo{\includegraphics[width=0.45\paperheight]{assets/unam-escudo-gris}}
 \unamslidelogo{\includegraphics[width=0.45\paperheight]{assets/unam-escudo-gris}}
+\unamtitlelogoshift{-0.7cm}
+\unamurl{https://www.unam.mx}{www.unam.mx}
 \def\unam@mottospacing{\hspace{0.75\beamer@rightmargin}\vspace*{-7.5pt}}
 
 % >>>
@@ -173,9 +177,12 @@
 \defbeamertemplate{footline}{unamframe}{
     \vspace{5pt}
     \ifunam@progressbar
-    \unam@progressbarwidth=\paperwidth
-    \multiply\unam@progressbarwidth by \insertframenumber
-    \divide\unam@progressbarwidth by \inserttotalframenumber
+    % tope: en la 1.ª pasada el total aún no se conoce y la barra se pasaría del máximo de TeX
+    \ifnum\inserttotalframenumber<\insertframenumber\relax
+        \unam@progressbarwidth=\paperwidth
+    \else
+        \unam@progressbarwidth=\dimexpr\paperwidth*\insertframenumber/\inserttotalframenumber\relax
+    \fi
     \begin{tikzpicture}[remember picture, overlay]
     \fill[UNAMGold, anchor=west]
         (0, -0.3ex) rectangle (\unam@progressbarwidth, 0ex);
@@ -188,7 +195,7 @@
     \hspace{\beamer@leftmargin}%
     \usebeamerfont{author in head/foot}\insertshortauthor%
     \hfill\usebeamercolor[fg]{url text}\usebeamerfont{url text}%
-    \href{https://www.unam.mx}{www.unam.mx}%
+    \href{\unam@url}{\unam@urltext}%
     \hspace{1.75\beamer@rightmargin}
     \vspace*{0.75pt}
     \end{beamercolorbox}
@@ -210,10 +217,11 @@
 
 \setbeamertemplate{background}[unamslide]
 
-\NewDocumentCommand \titleframe {} {
+% \titleframe[<extra>]: <extra> se dibuja encima de la portada (p.ej. un \postit)
+\NewDocumentCommand \titleframe {O{}} {
     \setbeamertemplate{title page}[unamtitlepage]
     \setbeamertemplate{background}[unamtitlepage]
-    \frame[plain,noframenumbering]{\titlepage}
+    \frame[plain,noframenumbering]{\titlepage#1}
     \setbeamertemplate{background}[unamslide]
 }
 
@@ -276,7 +284,7 @@
                anchor=north,
                minimum width=\paperwidth, minimum height=\paperheight]
                (box) at (current page.north) {};
-        \node [opacity=0.5, anchor=north, yshift=-0.7cm] at (current page.north)
+        \node [opacity=0.5, anchor=north, yshift=\unam@titlelogoshift] at (current page.north)
             {\unam@titlelogo};
     \end{tikzpicture}
 }

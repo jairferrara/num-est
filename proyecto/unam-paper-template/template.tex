@@ -1,0 +1,188 @@
+%****************************** Preámbulo ******************************%
+\documentclass[letterpaper, 12pt]{article}
+
+% <<< BEGIN idioma y codificación
+
+% Idioma de trabajo: español, "table" -> "tabla" y punto decimal en fórmulas (sin la opción sería coma).
+\usepackage[spanish, es-tabla, es-nodecimaldot]{babel}
+
+% Acentos, ñ y separación silábica correcta de palabras acentuadas.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% >>> END
+
+% <<< BEGIN paquetes y macros
+
+% Imágenes y ubicación fija de figuras con \begin{figure}[H].
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{images/}}
+
+% Notación (derivadas, vectores, brakets, unidades) y entornos matemáticos.
+\usepackage{physics, amsmath, amssymb}
+
+% Tablas con líneas horizontales limpias (\toprule, \midrule, \bottomrule).
+\usepackage{booktabs}
+
+% Gráficos con el lenguaje nativo de LaTeX.
+\usepackage{tikz}
+\usetikzlibrary{fit, backgrounds, arrows.meta, positioning, babel}
+
+% Colores para gráficas y diagramas TikZ (los mismos del template de Beamer).
+% Los colores UNAM (UNAMDarkBlue, UNAMLightBlue, UNAMGold) vienen de unampaper.sty.
+\definecolor{myblue}{RGB}{30,100,180}
+\definecolor{myred}{RGB}{180,30,30}
+\definecolor{mygreen}{RGB}{20,140,60}
+\definecolor{mypurple}{RGB}{120,30,160}
+\definecolor{myorange}{RGB}{220,120,0}
+
+% Listas con formato configurable (mejor que enumerate a secas).
+\usepackage{enumitem}
+
+% Texto a dos columnas: \begin{multicols}{2} ... \end{multicols}.
+\usepackage{multicol}
+\setlength\columnsep{20pt}
+
+% Fórmulas más grandes dentro del texto (útil en ejercicios resueltos).
+\usepackage{relsize}
+\newcommand{\mlr}[1]{\mbox{$\mathlarger{#1}$}}
+
+% Unidades: 9.8\un{m/s$^2$}.
+\newcommand{\un}[1]{\mbox{ #1}}
+
+% Citas como superíndice.
+\newcommand{\upcite}[1]{\mbox{$^\text{\cite{#1}}$}}
+
+% >>> END
+
+% <<< BEGIN estilo UNAM
+
+% Márgenes, título, índice, PromptBlock y enlaces (colores UNAM solo en enlaces).
+% Va al final del preámbulo porque carga hyperref.
+\usepackage{unampaper}
+
+% >>> END
+
+% <<< BEGIN metadatos
+
+\title{Título del trabajo}
+\author{Nombre del autor}
+% \date{Noviembre 2026}   % opcional
+
+% >>> END
+
+%****************************** Documento ******************************%
+\begin{document}
+
+    % Numeración romana desde la portada.
+    \pagenumbering{Roman}
+
+    \maketitle
+
+    \begin{abstract}
+        Resumen del trabajo: problema, método y resultado principal en un solo párrafo.
+    \end{abstract}
+
+    \unamindice
+
+    \section{Teoría}
+        \subsection{Subsección}
+            Texto con una ecuación numerada y etiquetada:
+
+            \begin{equation}\label{eq:ejemplo}
+                \delta(\vb{x},t) = \frac{\rho(\vb{x},t) - \bar{\rho}(t)}{\bar{\rho}(t)}.
+            \end{equation}
+
+            Referencia a la ecuación \ref{eq:ejemplo} y cita en superíndice\upcite{ref1}. Ecuaciones alineadas:
+
+            \begin{align}
+                \delta(\vb{k}) &= \sum_{n=1}^{\infty} \delta^{(n)}(\vb{k}), \\
+                \expval{\delta(\vb{k})\delta(\vb{k}')} &= (2\pi)^3 \delta_D(\vb{k}+\vb{k}') P(k).
+            \end{align}
+
+        % Con matemáticas en el título usar \texorpdfstring{con LaTeX}{texto plano para el PDF}.
+        \subsection{\texorpdfstring{Subsección con $F_2$ en el título}{Subsección con F2 en el título}}
+            Texto de la subsección con una cita normal \cite{ref2}.
+
+    \section{Cómputo}
+        \subsection{Método numérico}
+            Texto con \texttt{código}, unidades (9.8\un{m/s$^2$}) y listas:
+
+            \begin{itemize}
+                \item Primer nivel.
+                    \begin{itemize}
+                        \item Segundo nivel.
+                            \begin{itemize}
+                                \item Tercer nivel.
+                            \end{itemize}
+                    \end{itemize}
+                \item Otro elemento.
+            \end{itemize}
+
+            \begin{enumerate}
+                \item Primer paso.
+                \item Segundo paso.
+            \end{enumerate}
+
+        \subsection{Subsección}
+            \subsubsection{Subsubsección}
+                Texto de la subsubsección.
+
+    \section{Resultados}
+        Referencia a la Figura~\ref{fig:ejemplo} y a la Tabla~\ref{tab:ejemplo}.
+
+        \begin{figure}[H]
+            \centering
+            % reemplazar por: \includegraphics[width=0.85\linewidth]{mi-figura.pdf}
+            \begin{tikzpicture}
+                \draw[thick, draw=black!60, fill=black!3] (0,0) rectangle (10,4);
+                \node[text=black!60] at (5,2) {Figura};
+            \end{tikzpicture}
+            \caption{Descripción de la figura.}
+            \label{fig:ejemplo}
+        \end{figure}
+
+        \begin{table}[H]
+            \centering
+            \caption{Descripción de la tabla.}
+            \label{tab:ejemplo}
+            \begin{tabular}{lcc}
+                \toprule
+                Parámetro & Valor & Error \\
+                \midrule
+                $\Omega_{m0}$ & 0.31 & 0.01 \\
+                $h$           & 0.67 & 0.02 \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+
+    \section{Uso de los modelos LLM}
+        Modelos utilizados, versiones y enlaces a los historiales:
+
+        \begin{enumerate}
+            \item \url{https://claude.ai/share/...}
+        \end{enumerate}
+
+        Instrucciones de sistema utilizadas:
+
+        \begin{PromptBlock}
+SYSTEM INSTRUCTIONS
+
+Texto literal; respeta espacios y saltos de línea, y puede continuar
+de una página a otra.
+        \end{PromptBlock}
+
+    \section{Conclusiones}
+        Texto de las conclusiones.
+
+    \begin{thebibliography}{0}
+
+        \bibitem{ref1} Apellido, A., \& Apellido, B. (Año). Título del artículo. \textit{Revista}, volumen(número), página. \url{https://doi.org/...}
+
+        \bibitem{ref2} Apellido, A. (Año). Título del preprint. arXiv preprint arXiv:XXXX.XXXXX. \url{https://arxiv.org/abs/XXXX.XXXXX}
+
+    \end{thebibliography}
+
+\end{document}
